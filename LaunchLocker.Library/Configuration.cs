@@ -12,6 +12,8 @@ namespace LaunchLocker.Library
             Args = args;
         }
 
+        public FileInfo TargetFileInfo { get; private set; }
+
         public bool CheckIfValid(out string message)
         {
             message = string.Empty;
@@ -30,11 +32,11 @@ namespace LaunchLocker.Library
                 return false;
             }
 
-            var targetFileInfo = new FileInfo(targetFileName);
+            TargetFileInfo = new FileInfo(targetFileName);
 
-            if(!targetFileInfo.Exists)
+            if(!TargetFileInfo.Exists)
             {
-                message = $"File `{targetFileInfo}` not found";
+                message = $"File `{TargetFileInfo.FullName}` not found";
                 return false;
             }
 

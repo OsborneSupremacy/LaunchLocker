@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchLocker.UI", "LaunchLocker.UI\LaunchLocker.UI.csproj", "{2A3C7AEE-0D4D-418B-8862-0A0BB6361D3A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchLocker.UI", "LaunchLocker.UI\LaunchLocker.UI.csproj", "{2A3C7AEE-0D4D-418B-8862-0A0BB6361D3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchLocker.Library", "LaunchLocker.Library\LaunchLocker.Library.csproj", "{A7FFC8F7-5ED8-4C09-8C98-0260950D0A50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchLocker.Library", "LaunchLocker.Library\LaunchLocker.Library.csproj", "{A7FFC8F7-5ED8-4C09-8C98-0260950D0A50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchLocker.Tests", "LaunchLocker.Tests\LaunchLocker.Tests.csproj", "{3E54FF34-61DB-4BB9-8829-86B7C4308FEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{A7FFC8F7-5ED8-4C09-8C98-0260950D0A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7FFC8F7-5ED8-4C09-8C98-0260950D0A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7FFC8F7-5ED8-4C09-8C98-0260950D0A50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E54FF34-61DB-4BB9-8829-86B7C4308FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E54FF34-61DB-4BB9-8829-86B7C4308FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E54FF34-61DB-4BB9-8829-86B7C4308FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E54FF34-61DB-4BB9-8829-86B7C4308FEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

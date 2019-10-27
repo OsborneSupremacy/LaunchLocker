@@ -10,6 +10,11 @@ namespace LaunchLocker.UI
             if (!config.CheckIfValid(out string message))
                 ExitWithMessage(message);
 
+            var lockReader = new Library.LockReader(config.TargetFileInfo);
+            if(lockReader.DoesLockExist())
+                ExitWithMessage("lock exists");
+
+            ExitWithMessage("no issues");
         }
 
         public static void ExitWithMessage(string Message)
