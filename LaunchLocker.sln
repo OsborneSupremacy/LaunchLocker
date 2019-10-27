@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29306.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchLocker.UI", "LaunchLocker.UI\LaunchLocker.UI.csproj", "{2A3C7AEE-0D4D-418B-8862-0A0BB6361D3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchLocker.Library", "LaunchLocker.Library\LaunchLocker.Library.csproj", "{A7FFC8F7-5ED8-4C09-8C98-0260950D0A50}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A3C7AEE-0D4D-418B-8862-0A0BB6361D3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A3C7AEE-0D4D-418B-8862-0A0BB6361D3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A3C7AEE-0D4D-418B-8862-0A0BB6361D3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A3C7AEE-0D4D-418B-8862-0A0BB6361D3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7FFC8F7-5ED8-4C09-8C98-0260950D0A50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7FFC8F7-5ED8-4C09-8C98-0260950D0A50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7FFC8F7-5ED8-4C09-8C98-0260950D0A50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7FFC8F7-5ED8-4C09-8C98-0260950D0A50}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {14F1FECC-2E07-4E53-A323-27FA25E9CF09}
+	EndGlobalSection
+EndGlobal
