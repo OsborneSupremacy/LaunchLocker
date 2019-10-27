@@ -6,27 +6,24 @@ namespace LaunchLocker.Library
     {
         public IFileSystem FileSystem { get; set; }
 
-        public string[] Args { get; set; }
-
-        public Configuration(IFileSystem fileSystem, string[] args)
+        public Configuration(IFileSystem fileSystem)
         {
             FileSystem = fileSystem;
-            Args = args;
         }
 
         public IFileInfo TargetFileInfo { get; private set; }
 
-        public bool CheckIfValid(out string message)
+        public bool CheckIfValid(string[] args, out string message)
         {
             message = string.Empty;
 
-            if (Args.Length == 0)
+            if (args.Length == 0)
             {
                 message = "At least one command line argument is required.";
                 return false;
             };
 
-            string targetFileName = Args[0];
+            string targetFileName = args[0];
 
             if(string.IsNullOrEmpty(targetFileName))
             {

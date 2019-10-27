@@ -9,11 +9,11 @@ namespace LaunchLocker.UI
         {
             IFileSystem fileSystem = new FileSystem();
 
-            var config = new Library.Configuration(fileSystem, args);
-            if (!config.CheckIfValid(out string message))
+            var config = new Library.Configuration(fileSystem);
+            if (!config.CheckIfValid(args, out string message))
                 ExitWithMessage(message);
 
-            var lockReader = new Library.LockReader(fileSystem, config.TargetFileInfo);
+            var lockReader = new Library.LockReader(fileSystem, config);
             if(lockReader.DoesLockExist())
                 ExitWithMessage("lock exists");
 

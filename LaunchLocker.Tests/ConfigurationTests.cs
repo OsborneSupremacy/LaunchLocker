@@ -1,6 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FluentAssertions;
-using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
 
 namespace LaunchLocker.Tests
@@ -19,9 +18,9 @@ namespace LaunchLocker.Tests
         [TestMethod]
         public void CheckIfValid_Should_BeFalse_When_No_Args()
         {
-            var config = new Library.Configuration(FileSystem, new string[] { });
+            var config = new Library.Configuration(FileSystem);
 
-            var IsValid = config.CheckIfValid(out string message);
+            var IsValid = config.CheckIfValid(new string[] { }, out string message);
 
             IsValid.Should().BeFalse();
             message.Should().Contain("At least one command line argument is required");
@@ -30,9 +29,9 @@ namespace LaunchLocker.Tests
         [TestMethod]
         public void CheckIfValid_Should_BeFalse_When_TargetFile_Is_Empty()
         {
-            var config = new Library.Configuration(FileSystem, new string[] { "" });
+            var config = new Library.Configuration(FileSystem);
 
-            var IsValid = config.CheckIfValid(out string message);
+            var IsValid = config.CheckIfValid(new string[] { "" }, out string message);
 
             IsValid.Should().BeFalse();
             message.Should().Contain("The first command line argument should be the file to be lauched");
@@ -41,9 +40,9 @@ namespace LaunchLocker.Tests
         [TestMethod]
         public void CheckIfValid_Should_BeFalse_When_No_File_Absent()
         {
-            var config = new Library.Configuration(FileSystem, new string[] { @"C:\Test.txt" });
+            var config = new Library.Configuration(FileSystem);
 
-            var IsValid = config.CheckIfValid(out string message);
+            var IsValid = config.CheckIfValid(new string[] { @"C:\Test.txt" }, out string message);
 
             IsValid.Should().BeFalse();
         }
@@ -54,9 +53,9 @@ namespace LaunchLocker.Tests
             var testFile = @"C:\Test.txt";
             FileSystem.AddFile(testFile, new MockFileData("Test"));
 
-            var config = new Library.Configuration(FileSystem, new string[] { testFile });
+            var config = new Library.Configuration(FileSystem);
 
-            var IsValid = config.CheckIfValid(out string message);
+            var IsValid = config.CheckIfValid(new string[] { testFile }, out string message);
 
             IsValid.Should().BeTrue();
         }

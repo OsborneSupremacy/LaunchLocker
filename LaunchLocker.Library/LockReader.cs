@@ -7,23 +7,22 @@ namespace LaunchLocker.Library
     {
         public IFileSystem FileSystem { get; set; }
 
-        public IFileInfo TargetFileInfo { get; set; }
+        public Configuration Configuration { get; set; }
 
-        public const string lockFileExtension = ".launchlock";
+        public const string lockFileExtension = "launchlock";
 
         public IFileInfo[] LockInfos { get; set; }
 
-        public LockReader(IFileSystem fileSystem, IFileInfo targetFileInfo)
+        public LockReader(IFileSystem fileSystem, Configuration configuration)
         {
             FileSystem = fileSystem;
-            TargetFileInfo = targetFileInfo;
+            Configuration = configuration;
         }
 
         public bool DoesLockExist()
         {
-            LockInfos = TargetFileInfo.Directory.GetFiles($"*.{lockFileExtension}");
+            LockInfos = Configuration.TargetFileInfo.Directory.GetFiles($@"{Configuration.TargetFileInfo.Name}.*.{lockFileExtension}");
             return (LockInfos.Length > 0);
         }
-
     }
 }
