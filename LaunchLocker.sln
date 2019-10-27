@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchLocker.Library", "Lau
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchLocker.Tests", "LaunchLocker.Tests\LaunchLocker.Tests.csproj", "{3E54FF34-61DB-4BB9-8829-86B7C4308FEB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchLocker.Interface", "LaunchLocker.Interface\LaunchLocker.Interface.csproj", "{8ECE0D4E-3004-44DE-BB06-0C0FDFD64E36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3E54FF34-61DB-4BB9-8829-86B7C4308FEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E54FF34-61DB-4BB9-8829-86B7C4308FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E54FF34-61DB-4BB9-8829-86B7C4308FEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ECE0D4E-3004-44DE-BB06-0C0FDFD64E36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ECE0D4E-3004-44DE-BB06-0C0FDFD64E36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ECE0D4E-3004-44DE-BB06-0C0FDFD64E36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ECE0D4E-3004-44DE-BB06-0C0FDFD64E36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

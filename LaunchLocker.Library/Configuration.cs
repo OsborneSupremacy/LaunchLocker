@@ -1,8 +1,9 @@
-﻿using System.IO.Abstractions;
+﻿using LaunchLocker.Interface;
+using System.IO.Abstractions;
 
 namespace LaunchLocker.Library
 {
-    public class Configuration
+    public class Configuration : IConfiguration
     {
         public IFileSystem FileSystem { get; set; }
 
@@ -25,7 +26,7 @@ namespace LaunchLocker.Library
 
             string targetFileName = args[0];
 
-            if(string.IsNullOrEmpty(targetFileName))
+            if (string.IsNullOrEmpty(targetFileName))
             {
                 message = "The first command line argument should be the file to be lauched.";
                 return false;
@@ -33,7 +34,7 @@ namespace LaunchLocker.Library
 
             TargetFileInfo = FileSystem.FileInfo.FromFileName(targetFileName);
 
-            if(!TargetFileInfo.Exists)
+            if (!TargetFileInfo.Exists)
             {
                 message = $"File `{TargetFileInfo.FullName}` not found";
                 return false;

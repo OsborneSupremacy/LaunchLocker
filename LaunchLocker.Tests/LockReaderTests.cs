@@ -37,12 +37,12 @@ namespace LaunchLocker.Tests
         }
 
         [TestMethod]
-        public void DoesLockExist_Should_BeFalse_When_One_Locks_Present()
+        public void DoesLockExist_Should_BeFalse_When_One_Lock_Present()
         {
             FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}.launchlock", "lock");
 
             LockReader.DoesLockExist().Should().BeTrue();
-            LockReader.LockInfos.Length.Should().Be(1);
+            LockReader.LockInfoCollection.Length.Should().Be(1);
         }
 
         [TestMethod]
@@ -52,7 +52,7 @@ namespace LaunchLocker.Tests
             FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}.launchlock", "lock");
 
             LockReader.DoesLockExist().Should().BeTrue();
-            LockReader.LockInfos.Length.Should().Be(2);
+            LockReader.LockInfoCollection.Length.Should().Be(2);
         }
 
     }
