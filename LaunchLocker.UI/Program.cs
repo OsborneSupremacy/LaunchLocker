@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO.Abstractions;
 
 namespace LaunchLocker.UI
 {
@@ -6,11 +7,13 @@ namespace LaunchLocker.UI
     {
         static void Main(string[] args)
         {
-            var config = new Library.Configuration(args);
+            IFileSystem fileSystem = new FileSystem();
+
+            var config = new Library.Configuration(fileSystem, args);
             if (!config.CheckIfValid(out string message))
                 ExitWithMessage(message);
 
-            var lockReader = new Library.LockReader(config.TargetFileInfo);
+            var lockReader = new Library.LockReader(fileSystem, config.TargetFileInfo);
             if(lockReader.DoesLockExist())
                 ExitWithMessage("lock exists");
 

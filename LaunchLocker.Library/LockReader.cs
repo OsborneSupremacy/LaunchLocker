@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
+using System.IO.Abstractions;
 
 namespace LaunchLocker.Library
 {
     public class LockReader
     {
-        public FileInfo TargetFileInfo { get; set; }
+        public IFileSystem FileSystem { get; set; }
+
+        public IFileInfo TargetFileInfo { get; set; }
 
         public const string lockFileExtension = ".launchlock";
 
-        public FileInfo[] LockInfos { get; set; }
+        public IFileInfo[] LockInfos { get; set; }
 
-        public LockReader(FileInfo targetFileInfo)
+        public LockReader(IFileSystem fileSystem, IFileInfo targetFileInfo)
         {
+            FileSystem = fileSystem;
             TargetFileInfo = targetFileInfo;
         }
 

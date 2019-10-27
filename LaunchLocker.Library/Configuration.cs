@@ -1,18 +1,20 @@
-﻿using System;
-using System.IO;
+﻿using System.IO.Abstractions;
 
 namespace LaunchLocker.Library
 {
     public class Configuration
     {
+        public IFileSystem FileSystem { get; set; }
+
         public string[] Args { get; set; }
 
-        public Configuration(string[] args)
+        public Configuration(IFileSystem fileSystem, string[] args)
         {
+            FileSystem = fileSystem;
             Args = args;
         }
 
-        public FileInfo TargetFileInfo { get; private set; }
+        public IFileInfo TargetFileInfo { get; private set; }
 
         public bool CheckIfValid(out string message)
         {
@@ -32,7 +34,7 @@ namespace LaunchLocker.Library
                 return false;
             }
 
-            TargetFileInfo = new FileInfo(targetFileName);
+            TargetFileInfo = FileSystem.FileInfo.FromFileName(targetFileName);
 
             if(!TargetFileInfo.Exists)
             {
