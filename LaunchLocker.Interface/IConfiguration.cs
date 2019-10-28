@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Abstractions;
-using System.Text;
+﻿using System.IO.Abstractions;
 
 namespace LaunchLocker.Interface
 {
+    /// <summary>
+    /// Holds the parameters passed into and checks their validity
+    /// </summary>
     public interface IConfiguration
     {
         IFileInfo TargetFileInfo { get; }

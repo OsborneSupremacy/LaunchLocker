@@ -1,9 +1,10 @@
 ﻿using LaunchLocker.Interface;
 using System.IO.Abstractions;
+using System;
 
 namespace LaunchLocker.Library
 {
-    public class LockReader : ILockReader
+    public class LockFinder : ILockFinder
     {
         public IFileSystem FileSystem { get; set; }
 
@@ -13,10 +14,10 @@ namespace LaunchLocker.Library
 
         public IFileInfo[] LockInfoCollection { get; set; }
 
-        public LockReader(IFileSystem fileSystem, IConfiguration configuration)
+        public LockFinder(IFileSystem fileSystem, IConfiguration configuration)
         {
-            FileSystem = fileSystem ?? throw new System.ArgumentException(nameof(fileSystem));
-            Configuration = configuration ?? throw new System.ArgumentException(nameof(configuration));
+            FileSystem = fileSystem ?? throw new ArgumentException(nameof(fileSystem));
+            Configuration = configuration ?? throw new ArgumentException(nameof(configuration));
         }
 
         public bool DoesLockExist()

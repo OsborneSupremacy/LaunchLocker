@@ -15,12 +15,12 @@ namespace LaunchLocker.UI
             {
                 var fileSystem = scope.ServiceProvider.GetRequiredService<IFileSystem>();
                 var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
-                var lockReader = scope.ServiceProvider.GetRequiredService<ILockReader>();
+                var lockFinder = scope.ServiceProvider.GetRequiredService<ILockFinder>();
 
                 if (!config.CheckIfValid(args, out string message))
                     ExitWithMessage(message);
 
-                if (lockReader.DoesLockExist())
+                if (lockFinder.DoesLockExist())
                     ExitWithMessage("lock exists");
 
                 ExitWithMessage("no issues");

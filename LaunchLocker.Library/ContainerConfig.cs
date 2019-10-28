@@ -11,8 +11,11 @@ namespace LaunchLocker.Library
             var serviceCollection = new ServiceCollection();
 
             serviceCollection.AddSingleton<IFileSystem, FileSystem>();
+            serviceCollection.AddSingleton<IJsonSerializer, JsonSerializer>();
             serviceCollection.AddSingleton<IConfiguration, Configuration>();
-            serviceCollection.AddSingleton<ILockReader, LockReader>();
+            serviceCollection.AddSingleton<ILockFinder, LockFinder>();
+            serviceCollection.AddSingleton<ILockBuilder, LockBuilder>();
+            serviceCollection.AddSingleton<ILockWriter, LockWriter>();
 
             return serviceCollection.BuildServiceProvider();
         }

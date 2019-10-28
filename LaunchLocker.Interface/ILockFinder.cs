@@ -2,7 +2,10 @@
 
 namespace LaunchLocker.Interface
 {
-    public interface ILockReader
+    /// <summary>
+    /// Finds existing lock files from disk
+    /// </summary>
+    public interface ILockFinder
     {
         IFileInfo[] LockInfoCollection { get; set; }
 
