@@ -8,6 +8,7 @@ namespace LaunchLocker.Tests
         protected MockFileSystem FileSystem = null;
         protected Library.Configuration Configuration = null;
         protected Library.LockFinder LockFinder = null;
+        protected Library.LockReader LockReader = null;
         protected Library.LockBuilder LockBuilder = null;
         protected Library.LockWriter LockWriter = null;
         protected Library.JsonSerializer JsonSerializer = null;
@@ -27,6 +28,7 @@ namespace LaunchLocker.Tests
             JsonSerializer = new Library.JsonSerializer();
             Configuration = new Library.Configuration(FileSystem);
             LockFinder = new Library.LockFinder(FileSystem, Configuration);
+            LockReader = new Library.LockReader(FileSystem, LockFinder);
             LockBuilder = new Library.LockBuilder(Configuration);
             LockWriter = new Library.LockWriter(FileSystem, JsonSerializer, LockBuilder);
 

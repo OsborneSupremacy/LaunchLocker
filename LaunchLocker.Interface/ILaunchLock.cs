@@ -8,6 +8,8 @@ namespace LaunchLocker.Interface
     /// </summary>
     public interface ILaunchLock
     {
+        bool IsValid { get; set; }
+
         string FileName { get; set; }
 
         string Username { get; set; }

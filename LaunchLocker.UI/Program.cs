@@ -16,12 +16,25 @@ namespace LaunchLocker.UI
                 var fileSystem = scope.ServiceProvider.GetRequiredService<IFileSystem>();
                 var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
                 var lockFinder = scope.ServiceProvider.GetRequiredService<ILockFinder>();
+                var lockReader = scope.ServiceProvider.GetRequiredService<ILockReader>();
+                var lockWriter = scope.ServiceProvider.GetRequiredService<ILockWriter>();
 
                 if (!config.CheckIfValid(args, out string message))
                     ExitWithMessage(message);
 
                 if (lockFinder.DoesLockExist())
+                {
+                    lockReader.Read();
+                    // check for bad locks and delete them
+                    // write lock info
                     ExitWithMessage("lock exists");
+                }
+
+                lockWriter.Write();
+
+                // write message about lock being created
+                // launch program
+                // delete lock
 
                 ExitWithMessage("no issues");
             }

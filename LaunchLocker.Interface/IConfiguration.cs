@@ -3,7 +3,7 @@
 namespace LaunchLocker.Interface
 {
     /// <summary>
-    /// Holds the parameters passed into and checks their validity
+    /// Holds the parameters passed in and checks their validity
     /// </summary>
     public interface IConfiguration
     {

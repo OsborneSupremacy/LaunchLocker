@@ -2,7 +2,7 @@
 namespace LaunchLocker.Interface
 {
     /// <summary>
-    /// Build ILaunchLock objects
+    /// Builds ILaunchLock objects
     /// </summary>
     public interface ILockBuilder
     {
