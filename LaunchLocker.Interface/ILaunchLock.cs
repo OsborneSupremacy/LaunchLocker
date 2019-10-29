@@ -1,4 +1,4 @@
-﻿
+﻿using System.Text.Json.Serialization;
 using System;
 
 namespace LaunchLocker.Interface
@@ -8,8 +8,10 @@ namespace LaunchLocker.Interface
     /// </summary>
     public interface ILaunchLock
     {
+        [JsonIgnore]
         bool IsValid { get; set; }
 
+        [JsonIgnore]
         string FileName { get; set; }
 
         string Username { get; set; }

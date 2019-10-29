@@ -14,7 +14,7 @@ namespace LaunchLocker.Tests
         }
 
         [TestMethod]
-        public void Should_Work_When_One_Lock_Present()
+        public void Read_Should_Work_When_One_Lock_Present()
         {
             FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}.launchlock", "lock");
 
@@ -26,7 +26,7 @@ namespace LaunchLocker.Tests
         }
 
         [TestMethod]
-        public void Should_Work_When_Two_Locks_Present()
+        public void Read_Should_Work_When_Two_Locks_Present()
         {
             var fileName1 = $"{TestFileName}.{Guid.NewGuid()}.launchlock";
             var fileName2 = $"{TestFileName}.{Guid.NewGuid()}.launchlock";

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Bogus;
 using LaunchLocker.Interface;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace LaunchLocker.Tests
 {
@@ -20,11 +20,7 @@ namespace LaunchLocker.Tests
             };
 
         public string GetLaunchLockJson(string fileName) =>
-            JsonConvert.SerializeObject(GetLaunchLock(fileName), new JsonSerializerSettings()
-            {
-                Formatting = Formatting.Indented,
-                NullValueHandling = NullValueHandling.Ignore
-            });
+            JsonSerializer.Serialize(GetLaunchLock(fileName));
 
     }
 }

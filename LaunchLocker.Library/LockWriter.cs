@@ -8,20 +8,20 @@ namespace LaunchLocker.Library
     {
         public IFileSystem FileSystem { get; set; }
 
-        public IJsonOperations JsonSerializer { get; set; }
+        public IJsonOperations JsonOperations { get; set; }
 
         public ILockBuilder LockBuilder { get; set; }
 
         public LockWriter(IFileSystem fileSystem, IJsonOperations jsonSerializer, ILockBuilder lockBuilder)
         {
             FileSystem = fileSystem ?? throw new ArgumentException(nameof(fileSystem));
-            JsonSerializer = jsonSerializer ?? throw new ArgumentException(nameof(jsonSerializer));
+            JsonOperations = jsonSerializer ?? throw new ArgumentException(nameof(jsonSerializer));
             LockBuilder = lockBuilder ?? throw new ArgumentException(nameof(lockBuilder));
         }
 
         public void Write()
         {
-            var lockJson = JsonSerializer.Serialize(LockBuilder.LaunchLock);
+            var lockJson = JsonOperations.Serialize(LockBuilder.LaunchLock);
             FileSystem.File.WriteAllText(LockBuilder.LaunchLock.FileName, lockJson);
         }
     }

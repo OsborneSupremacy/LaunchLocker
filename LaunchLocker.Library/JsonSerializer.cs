@@ -7,7 +7,7 @@ namespace LaunchLocker.Library
     {
         public ILaunchLock Deserialize(string fileName, string input)
         {
-            LaunchLock launchLock = null;
+            LaunchLock launchLock;
             try
             {
                 launchLock = JsonSerializer.Deserialize<LaunchLock>(input);
