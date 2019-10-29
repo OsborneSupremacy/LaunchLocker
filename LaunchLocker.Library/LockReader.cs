@@ -1,5 +1,4 @@
 ﻿using LaunchLocker.Interface;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO.Abstractions;
@@ -12,12 +11,15 @@ namespace LaunchLocker.Library
 
         public ILockFinder LockFinder { get; set; }
 
+        public IJsonOperations JsonOperations { get; set; }
+
         public IEnumerable<ILaunchLock> LaunchLocks { get; set; }
 
-        public LockReader(IFileSystem fileSystem, ILockFinder lockFinder)
+        public LockReader(IFileSystem fileSystem, ILockFinder lockFinder, IJsonOperations jsonOperations)
         {
             FileSytem = fileSystem ?? throw new ArgumentException(nameof(fileSystem));
             LockFinder = lockFinder ?? throw new ArgumentException(nameof(lockFinder));
+            JsonOperations = jsonOperations ?? throw new ArgumentException(nameof(jsonOperations));
         }
 
         public void Read()
@@ -26,16 +28,7 @@ namespace LaunchLocker.Library
 
             foreach (var fileInfo in LockFinder.LockInfoCollection) {
                 var lauchLockString = FileSytem.File.ReadAllText(fileInfo.FullName);
-                try
-                {
-                    var launchLock = JsonConvert.DeserializeObject<LaunchLock>(lauchLockString);
-                    launchLock.FileName = fileInfo.FullName;
-                    launchLock.IsValid = true;
-                    launchLocks.Add(launchLock);
-                } catch (JsonReaderException)
-                {
-                    launchLocks.Add(new LaunchLock() { IsValid = false });
-                }
+                launchLocks.Add(JsonOperations.Deserialize(fileInfo.FullName, lauchLockString) as LaunchLock);
             }
 
             LaunchLocks = launchLocks;

@@ -1,14 +1,27 @@
 ﻿using LaunchLocker.Interface;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace LaunchLocker.Library
 {
-    public class JsonSerializer : IJsonSerializer
+    public class JsonOperations : IJsonOperations
     {
+        public ILaunchLock Deserialize(string fileName, string input)
+        {
+            LaunchLock launchLock = null;
+            try
+            {
+                launchLock = JsonSerializer.Deserialize<LaunchLock>(input);
+                launchLock.IsValid = true;
+            }
+            catch (JsonException)
+            {
+                launchLock = new LaunchLock() { IsValid = false };
+            }
+            launchLock.FileName = fileName;
+            return launchLock;
+        }
+
         public string Serialize(object input) =>
-            JsonConvert.SerializeObject(input, new JsonSerializerSettings() {
-                Formatting = Formatting.Indented,
-                NullValueHandling = NullValueHandling.Ignore
-            });
+            JsonSerializer.Serialize(input);
     }
 }

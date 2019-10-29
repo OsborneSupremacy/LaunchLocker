@@ -8,11 +8,11 @@ namespace LaunchLocker.Library
     {
         public IFileSystem FileSystem { get; set; }
 
-        public IJsonSerializer JsonSerializer { get; set; }
+        public IJsonOperations JsonSerializer { get; set; }
 
         public ILockBuilder LockBuilder { get; set; }
 
-        public LockWriter(IFileSystem fileSystem, IJsonSerializer jsonSerializer, ILockBuilder lockBuilder)
+        public LockWriter(IFileSystem fileSystem, IJsonOperations jsonSerializer, ILockBuilder lockBuilder)
         {
             FileSystem = fileSystem ?? throw new ArgumentException(nameof(fileSystem));
             JsonSerializer = jsonSerializer ?? throw new ArgumentException(nameof(jsonSerializer));

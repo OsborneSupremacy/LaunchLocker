@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using LaunchLocker.Interface;
-using Newtonsoft.Json;
 
 namespace LaunchLocker.Library
 {
@@ -12,10 +12,10 @@ namespace LaunchLocker.Library
         [JsonIgnore]
         public string FileName { get; set; }
 
-        [JsonProperty("username")]
+        [JsonPropertyName("username")]
         public string Username { get; set; }
 
-        [JsonProperty("locktime")]
+        [JsonPropertyName("locktime")]
         public DateTime LockTime { get; set; }
     }
 }

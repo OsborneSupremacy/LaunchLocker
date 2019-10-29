@@ -11,7 +11,7 @@ namespace LaunchLocker.Tests
         protected Library.LockReader LockReader = null;
         protected Library.LockBuilder LockBuilder = null;
         protected Library.LockWriter LockWriter = null;
-        protected Library.JsonSerializer JsonSerializer = null;
+        protected Library.JsonOperations JsonOperations = null;
 
         protected string TestDirectoryName = string.Empty;
         protected string TestFileName = string.Empty;
@@ -25,12 +25,12 @@ namespace LaunchLocker.Tests
 
             FileSystem.AddDirectory(TestDirectoryName);
 
-            JsonSerializer = new Library.JsonSerializer();
+            JsonOperations = new Library.JsonOperations();
             Configuration = new Library.Configuration(FileSystem);
             LockFinder = new Library.LockFinder(FileSystem, Configuration);
-            LockReader = new Library.LockReader(FileSystem, LockFinder);
+            LockReader = new Library.LockReader(FileSystem, LockFinder, JsonOperations);
             LockBuilder = new Library.LockBuilder(Configuration);
-            LockWriter = new Library.LockWriter(FileSystem, JsonSerializer, LockBuilder);
+            LockWriter = new Library.LockWriter(FileSystem, JsonOperations, LockBuilder);
 
             Intialize();
 
