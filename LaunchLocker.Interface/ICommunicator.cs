@@ -1,4 +1,6 @@
-﻿namespace LaunchLocker.Interface
+﻿using System.Collections.Generic;
+
+namespace LaunchLocker.Interface
 {
     /// <summary>
     /// Interact with user.
@@ -12,5 +14,7 @@
         void WriteSentence(string message);
 
         void Exit();
+
+        void WriteLockInfo(IEnumerable<ILaunchLock> launchLocks);
     }
 }

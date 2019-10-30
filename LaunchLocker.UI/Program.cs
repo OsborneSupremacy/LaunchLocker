@@ -11,8 +11,8 @@ namespace LaunchLocker.UI
             var serviceScopeFactory = ContainerConfig.Configure().GetRequiredService<IServiceScopeFactory>();
             using (var scope = serviceScopeFactory.CreateScope())
             {
-                var lauchLockProcess = scope.ServiceProvider.GetRequiredService<ILaunchLockProcess>();
-                lauchLockProcess.Execute(args);
+                var launchLockProcess = scope.ServiceProvider.GetRequiredService<ILaunchLockProcess>();
+                launchLockProcess.Execute(args);
             }
         }
     }

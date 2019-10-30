@@ -34,7 +34,7 @@ namespace LaunchLocker.Tests
             var IsValid = config.CheckIfValid(new string[] { "" }, out string message);
 
             IsValid.Should().BeFalse();
-            message.Should().Contain("The first command line argument should be the file to be lauched");
+            message.Should().Contain("The first command line argument should be the file to be launched");
         }
 
         [TestMethod]

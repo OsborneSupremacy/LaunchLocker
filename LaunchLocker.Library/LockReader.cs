@@ -27,8 +27,8 @@ namespace LaunchLocker.Library
             var launchLocks = new List<LaunchLock>();
 
             foreach (var fileInfo in LockFinder.LockInfoCollection) {
-                var lauchLockString = FileSytem.File.ReadAllText(fileInfo.FullName);
-                launchLocks.Add(JsonOperations.Deserialize(fileInfo.FullName, lauchLockString) as LaunchLock);
+                var launchLockString = FileSytem.File.ReadAllText(fileInfo.FullName);
+                launchLocks.Add(JsonOperations.Deserialize(fileInfo.FullName, launchLockString) as LaunchLock);
             }
 
             LaunchLocks = launchLocks;

@@ -28,7 +28,7 @@ namespace LaunchLocker.Library
 
             if (string.IsNullOrEmpty(targetFileName))
             {
-                message = "The first command line argument should be the file to be lauched.";
+                message = "The first command line argument should be the file to be launched.";
                 return false;
             }
 

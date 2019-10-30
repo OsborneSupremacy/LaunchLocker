@@ -28,5 +28,12 @@ namespace LaunchLocker.Tests
         {
             Messages.Add(message);
         }
+
+        public void WriteLockInfo(IEnumerable<ILaunchLock> launchLocks)
+        {
+            Messages.Add("Lock info:");
+            foreach (var launchLock in launchLocks)
+                Messages.Add($"User: {launchLock.Username}, Time: {launchLock.LockTime.ToString()}");
+        }
     }
 }

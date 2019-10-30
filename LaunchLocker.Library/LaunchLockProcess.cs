@@ -61,7 +61,7 @@ namespace LaunchLocker.Library
                 {
                     LockReader.Read();
                     Communicator.WriteSentence("File is locked and should not be opened.");
-                    //Communicator.WriteLockInfo(LockReader.LaunchLocks);
+                    Communicator.WriteLockInfo(LockReader.LaunchLocks);
                     Communicator.WriteSentence("Locks can be manually deleted if you believe them to be obsolete.");
                     Communicator.Exit();
                     return;

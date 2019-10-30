@@ -36,21 +36,21 @@ namespace LaunchLocker.Tests
 
             var input = JsonOperations.Serialize(originalLaunchLock);
 
-            var lauchLock = JsonOperations.Deserialize(FileName, input);
+            var launchLock = JsonOperations.Deserialize(FileName, input);
 
-            lauchLock.IsValid.Should().Be(true);
-            lauchLock.FileName.Should().Be(FileName);
-            lauchLock.LockTime.Should().BeCloseTo(lockTime);
-            lauchLock.Username.Should().Be(userName);
+            launchLock.IsValid.Should().Be(true);
+            launchLock.FileName.Should().Be(FileName);
+            launchLock.LockTime.Should().BeCloseTo(lockTime);
+            launchLock.Username.Should().Be(userName);
         }
 
         [TestMethod]
         public void Deserialize_Should_Work_For_Invalid_Input()
         {
 
-            var lauchLock = JsonOperations.Deserialize(FileName, "lock");
+            var launchLock = JsonOperations.Deserialize(FileName, "lock");
 
-            lauchLock.IsValid.Should().Be(false);
+            launchLock.IsValid.Should().Be(false);
         }
 
     }

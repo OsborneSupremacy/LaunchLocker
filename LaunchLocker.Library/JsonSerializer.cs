@@ -13,7 +13,7 @@ namespace LaunchLocker.Library
                 launchLock = JsonSerializer.Deserialize<LaunchLock>(input);
                 launchLock.IsValid = true;
             }
-            catch (JsonException ex)
+            catch (JsonException)
             {
                 launchLock = new LaunchLock() { IsValid = false };
             }

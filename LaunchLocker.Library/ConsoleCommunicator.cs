@@ -1,5 +1,6 @@
 ﻿using LaunchLocker.Interface;
 using System;
+using System.Collections.Generic;
 
 namespace LaunchLocker.Library
 {
@@ -17,5 +18,12 @@ namespace LaunchLocker.Library
 
         public void WriteSentence(string message) =>
             Console.WriteLine(message);
+
+        public void WriteLockInfo(IEnumerable<ILaunchLock> launchLocks)
+        {
+            Console.WriteLine("Lock info:");
+            foreach (var launchLock in launchLocks)
+                Console.WriteLine($"User: {launchLock.Username}, Time: {launchLock.LockTime.ToString()}");
+        }
     }
 }
