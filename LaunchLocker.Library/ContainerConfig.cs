@@ -17,6 +17,8 @@ namespace LaunchLocker.Library
             serviceCollection.AddSingleton<ILockBuilder, LockBuilder>();
             serviceCollection.AddSingleton<ILockWriter, LockWriter>();
             serviceCollection.AddSingleton<ILockReader, LockReader>();
+            serviceCollection.AddSingleton<ICommunicator, ConsoleCommunicator>();
+            serviceCollection.AddSingleton<ILaunchLockProcess, LaunchLockProcess>();
 
             return serviceCollection.BuildServiceProvider();
         }
