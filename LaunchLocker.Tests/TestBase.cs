@@ -12,6 +12,8 @@ namespace LaunchLocker.Tests
         protected Library.LockBuilder LockBuilder = null;
         protected Library.LockWriter LockWriter = null;
         protected Library.JsonOperations JsonOperations = null;
+        protected Library.LaunchLockProcess LaunchLockProcess = null;
+        protected ListCommunicator Communicator = null;
 
         protected string TestDirectoryName = string.Empty;
         protected string TestFileName = string.Empty;
@@ -31,6 +33,8 @@ namespace LaunchLocker.Tests
             LockReader = new Library.LockReader(FileSystem, LockFinder, JsonOperations);
             LockBuilder = new Library.LockBuilder(Configuration);
             LockWriter = new Library.LockWriter(FileSystem, JsonOperations, LockBuilder);
+            Communicator = new ListCommunicator();
+            LaunchLockProcess = new Library.LaunchLockProcess(Configuration, LockFinder, LockReader, LockBuilder, LockWriter, Communicator, FileSystem);
 
             Intialize();
 
