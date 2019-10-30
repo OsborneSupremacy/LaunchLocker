@@ -1,5 +1,4 @@
 ﻿using LaunchLocker.Interface;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO.Abstractions;
 
@@ -21,6 +20,8 @@ namespace LaunchLocker.Library
 
         public IFileSystem FileSystem { get; set; }
 
+        public IUnlocker Unlocker { get; set; }
+
         public LaunchLockProcess(
             IConfiguration configuration,
             ILockFinder lockFinder,
@@ -28,7 +29,8 @@ namespace LaunchLocker.Library
             ILockBuilder lockBuilder,
             ILockWriter lockWriter,
             ICommunicator communicator, 
-            IFileSystem fileSystem)
+            IFileSystem fileSystem,
+            IUnlocker unlocker)
         {
             Configuration = configuration ?? throw new System.ArgumentException(nameof(configuration));
             LockFinder = lockFinder ?? throw new ArgumentException(nameof(lockFinder));
@@ -37,6 +39,7 @@ namespace LaunchLocker.Library
             LockWriter = lockWriter ?? throw new ArgumentException(nameof(lockWriter));
             Communicator = communicator ?? throw new ArgumentException(nameof(communicator));
             FileSystem = fileSystem ?? throw new ArgumentException(nameof(fileSystem));
+            Unlocker = unlocker ?? throw new ArgumentException(nameof(unlocker));
         }
 
         public void Execute(string[] args)
@@ -51,8 +54,10 @@ namespace LaunchLocker.Library
             if (LockFinder.DoesLockExist())
             {
                 LockReader.Read();
-                // Unlocker.RemoveBadLocks(); // remove malformed locks, or locks from current user
-                if(LockFinder.DoesLockExist()) // after removing bad locks, see if locks still exist
+
+                Unlocker.RemoveObsoleteLocks();
+
+                if(LockFinder.DoesLockExist()) // see if locks still exist
                 {
                     LockReader.Read();
                     Communicator.WriteSentence("File is locked and should not be opened.");
@@ -69,7 +74,7 @@ namespace LaunchLocker.Library
 
             Communicator.WriteSentence("Launching file.");
             // Launcher.Launch();
-            // Unlocker.RemoveLock();
+            Unlocker.RemoveLock();
             Communicator.WriteSentence("Lock file removed.");
             return;
         }

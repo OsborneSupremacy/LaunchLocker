@@ -14,8 +14,10 @@ namespace LaunchLocker.Interface
         [JsonIgnore]
         string FileName { get; set; }
 
+        [JsonPropertyName("username")]
         string Username { get; set; }
 
+        [JsonPropertyName("locktime")]
         DateTime LockTime { get; set; }
     }
 }
