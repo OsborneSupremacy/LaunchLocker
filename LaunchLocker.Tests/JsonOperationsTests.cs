@@ -3,9 +3,12 @@ using LaunchLocker.Library;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using FluentAssertions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LaunchLocker.Tests
 {
+    [ExcludeFromCodeCoverage]
+
     [TestClass]
     public class JsonOperationsTests
     {

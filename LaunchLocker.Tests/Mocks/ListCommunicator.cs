@@ -1,9 +1,11 @@
 ﻿using LaunchLocker.Interface;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LaunchLocker.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class ListCommunicator : ICommunicator
     {
         public List<string> Messages { get; set; }

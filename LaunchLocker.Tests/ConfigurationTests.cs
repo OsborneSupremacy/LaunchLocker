@@ -1,9 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FluentAssertions;
 using System.IO.Abstractions.TestingHelpers;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LaunchLocker.Tests
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class ConfigurationTests
     {

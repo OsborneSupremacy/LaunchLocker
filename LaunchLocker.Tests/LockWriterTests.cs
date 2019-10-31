@@ -1,8 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FluentAssertions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LaunchLocker.Tests
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class LockWriterTests : TestBase
     {

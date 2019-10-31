@@ -2,9 +2,11 @@
 using FluentAssertions;
 using System.Linq;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LaunchLocker.Tests
 {
+    [ExcludeFromCodeCoverage]
     [TestClass]
     public class LaunchLockProcessTests : TestBase
     {

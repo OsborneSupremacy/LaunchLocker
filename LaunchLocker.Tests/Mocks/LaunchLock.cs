@@ -2,9 +2,11 @@
 using Bogus;
 using LaunchLocker.Interface;
 using System.Text.Json;
+using System.Diagnostics.CodeAnalysis;
 
 namespace LaunchLocker.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class Mocks
     {
         public ILaunchLock GetLaunchLock(string fileName) =>

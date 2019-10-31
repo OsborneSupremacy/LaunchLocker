@@ -1,8 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics.CodeAnalysis;
 using System.IO.Abstractions.TestingHelpers;
 
 namespace LaunchLocker.Tests
 {
+    [ExcludeFromCodeCoverage]
     public abstract class TestBase
     {
         protected MockFileSystem FileSystem = null;
