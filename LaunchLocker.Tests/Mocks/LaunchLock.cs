@@ -1,8 +1,8 @@
-﻿using LaunchLocker.Library;
-using Bogus;
+﻿using Bogus;
 using LaunchLocker.Interface;
-using System.Text.Json;
+using LaunchLocker.Library;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 
 namespace LaunchLocker.Tests
 {

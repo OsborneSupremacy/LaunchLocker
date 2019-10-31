@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Linq;
-using FluentAssertions;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace LaunchLocker.Tests
 {

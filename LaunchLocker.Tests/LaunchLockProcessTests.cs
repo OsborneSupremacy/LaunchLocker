@@ -1,6 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FluentAssertions;
-using System.Linq;
+﻿using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
@@ -41,7 +40,8 @@ namespace LaunchLocker.Tests
         {
             FileSystem.AddFile(TestFileName, new Bogus.Faker().Lorem.Paragraphs(3));
 
-            var launchLock = new Library.LaunchLock() {
+            var launchLock = new Library.LaunchLock()
+            {
                 IsValid = true,
                 FileName = $"{TestFileName}.{Guid.NewGuid()}.launchlock",
                 Username = System.Security.Principal.WindowsIdentity.GetCurrent().Name,
@@ -71,7 +71,7 @@ namespace LaunchLocker.Tests
         {
             FileSystem.AddFile(TestFileName, new Bogus.Faker().Lorem.Paragraphs(3));
 
-            LaunchLockProcess.Execute(new string[] { TestFileName  });
+            LaunchLockProcess.Execute(new string[] { TestFileName });
 
             LockFinder.DoesLockExist().Should().BeFalse();
         }

@@ -22,7 +22,7 @@ namespace LaunchLocker.Library
                 Username = System.Security.Principal.WindowsIdentity.GetCurrent().Name,
                 FileName = $"{Configuration.TargetFileInfo.FullName}.{Guid.NewGuid()}.launchlock"
             };
-        }    
+        }
 
     }
 }

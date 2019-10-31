@@ -1,6 +1,6 @@
-﻿using System;
+﻿using LaunchLocker.Interface;
+using System;
 using System.Text.Json.Serialization;
-using LaunchLocker.Interface;
 
 namespace LaunchLocker.Library
 {

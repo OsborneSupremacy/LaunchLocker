@@ -1,6 +1,5 @@
 ﻿using LaunchLocker.Interface;
 using System;
-using System.Collections.Generic;
 using System.IO.Abstractions;
 using System.Linq;
 
@@ -22,7 +21,7 @@ namespace LaunchLocker.Library
         }
 
         public void RemoveLock() =>
-            FileSystem.File.Delete(LockBuilder.LaunchLock.FileName);            
+            FileSystem.File.Delete(LockBuilder.LaunchLock.FileName);
 
         public void RemoveObsoleteLocks()
         {

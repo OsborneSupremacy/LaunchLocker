@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using FluentAssertions;
+﻿using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
@@ -16,8 +16,8 @@ namespace LaunchLocker.Tests
 
         [TestMethod]
         public void DoesLockExist_Should_BeFalse_When_Lock_Absent()
-        {          
-            LockFinder.DoesLockExist().Should().BeFalse();         
+        {
+            LockFinder.DoesLockExist().Should().BeFalse();
         }
 
         [TestMethod]

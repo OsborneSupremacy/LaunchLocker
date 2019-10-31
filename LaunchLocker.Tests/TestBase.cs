@@ -38,15 +38,15 @@ namespace LaunchLocker.Tests
             LockWriter = new Library.LockWriter(FileSystem, JsonOperations, LockBuilder);
             Communicator = new ListCommunicator();
             Unlocker = new Library.Unlocker(FileSystem, LockReader, LockBuilder);
-            LaunchLockProcess = 
+            LaunchLockProcess =
                 new Library.LaunchLockProcess(
-                    Configuration, 
-                    LockFinder, 
-                    LockReader, 
-                    LockBuilder, 
-                    LockWriter, 
-                    Communicator, 
-                    FileSystem, 
+                    Configuration,
+                    LockFinder,
+                    LockReader,
+                    LockBuilder,
+                    LockWriter,
+                    Communicator,
+                    FileSystem,
                     Unlocker);
 
             Intialize();

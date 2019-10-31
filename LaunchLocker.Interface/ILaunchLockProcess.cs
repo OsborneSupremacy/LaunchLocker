@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LaunchLocker.Interface
+﻿namespace LaunchLocker.Interface
 {
     public interface ILaunchLockProcess
     {

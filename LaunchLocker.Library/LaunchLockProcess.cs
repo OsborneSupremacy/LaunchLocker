@@ -28,7 +28,7 @@ namespace LaunchLocker.Library
             ILockReader lockReader,
             ILockBuilder lockBuilder,
             ILockWriter lockWriter,
-            ICommunicator communicator, 
+            ICommunicator communicator,
             IFileSystem fileSystem,
             IUnlocker unlocker)
         {
@@ -57,7 +57,7 @@ namespace LaunchLocker.Library
 
                 Unlocker.RemoveObsoleteLocks();
 
-                if(LockFinder.DoesLockExist()) // see if locks still exist
+                if (LockFinder.DoesLockExist()) // see if locks still exist
                 {
                     LockReader.Read();
                     Communicator.WriteSentence("File is locked and should not be opened.");
