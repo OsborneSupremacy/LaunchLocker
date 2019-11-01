@@ -9,17 +9,20 @@ namespace LaunchLocker.Tests
     [ExcludeFromCodeCoverage]
     public class Mocks
     {
-        public ILaunchLock GetLaunchLock(string fileName) =>
+        public ILaunchLock GetLaunchLock(string fileName, bool useCurrentUser = false) =>
             new LaunchLock()
             {
                 FileName = fileName,
                 IsValid = true,
-                Username = new Faker().Internet.UserName(),
+                Username = 
+                    useCurrentUser 
+                    ? System.Security.Principal.WindowsIdentity.GetCurrent().Name
+                    : new Faker().Internet.UserName(),
                 LockTime = new Bogus.DataSets.Date().Past(1)
             };
 
-        public string GetLaunchLockJson(string fileName) =>
-            JsonSerializer.Serialize(GetLaunchLock(fileName));
+        public string GetLaunchLockJson(string fileName, bool useCurrentUser = false) =>
+            JsonSerializer.Serialize(GetLaunchLock(fileName, useCurrentUser));
 
     }
 }
