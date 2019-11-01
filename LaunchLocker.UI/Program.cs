@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace LaunchLocker.UI
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var serviceScopeFactory = ContainerConfig.Configure().GetRequiredService<IServiceScopeFactory>();
             using (var scope = serviceScopeFactory.CreateScope())

@@ -24,7 +24,7 @@ namespace LaunchLocker.Library
                 StartInfo = new ProcessStartInfo()
                 {
                     FileName = Configuration.TargetFileInfo.FullName,
-                    UseShellExecute = false,
+                    UseShellExecute = true,
                     Arguments = args.ToString()
                 }                
             };
