@@ -1,11 +1,15 @@
 ﻿using LaunchLocker.Interface;
+using System.Collections.Generic;
 using System.IO.Abstractions;
+using System.Linq;
 
 namespace LaunchLocker.Library
 {
     public class Configuration : IConfiguration
     {
         public IFileSystem FileSystem { get; set; }
+
+        public IEnumerable<string> TargetClas { get; set; }
 
         public Configuration(IFileSystem fileSystem)
         {
@@ -39,6 +43,13 @@ namespace LaunchLocker.Library
                 message = $"File `{TargetFileInfo.FullName}` not found";
                 return false;
             }
+
+            // handle additional CLAs
+            var targetClas = new List<string>();
+            if(args.Length > 1)            
+                targetClas.AddRange(args.Skip(1)); // don't return the first CLA, since that's the target file
+
+            TargetClas = targetClas;
 
             return true;
         }

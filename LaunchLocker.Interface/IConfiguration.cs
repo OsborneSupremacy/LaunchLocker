@@ -1,4 +1,5 @@
-﻿using System.IO.Abstractions;
+﻿using System.Collections.Generic;
+using System.IO.Abstractions;
 
 namespace LaunchLocker.Interface
 {
@@ -8,6 +9,9 @@ namespace LaunchLocker.Interface
     public interface IConfiguration
     {
         IFileInfo TargetFileInfo { get; }
+
+        // target command-line arguments we'll pass through to target file
+        IEnumerable<string> TargetClas { get;  }
 
         bool CheckIfValid(string[] args, out string message);
     }

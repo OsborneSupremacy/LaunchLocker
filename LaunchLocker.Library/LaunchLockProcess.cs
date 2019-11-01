@@ -22,6 +22,8 @@ namespace LaunchLocker.Library
 
         public IUnlocker Unlocker { get; set; }
 
+        public ILauncher Launcher { get; set; }
+
         public LaunchLockProcess(
             IConfiguration configuration,
             ILockFinder lockFinder,
@@ -30,7 +32,8 @@ namespace LaunchLocker.Library
             ILockWriter lockWriter,
             ICommunicator communicator,
             IFileSystem fileSystem,
-            IUnlocker unlocker)
+            IUnlocker unlocker,
+            ILauncher launcher)
         {
             Configuration = configuration ?? throw new System.ArgumentException(nameof(configuration));
             LockFinder = lockFinder ?? throw new ArgumentException(nameof(lockFinder));
@@ -40,6 +43,7 @@ namespace LaunchLocker.Library
             Communicator = communicator ?? throw new ArgumentException(nameof(communicator));
             FileSystem = fileSystem ?? throw new ArgumentException(nameof(fileSystem));
             Unlocker = unlocker ?? throw new ArgumentException(nameof(unlocker));
+            Launcher = launcher ?? throw new ArgumentException(nameof(launcher));
         }
 
         public void Execute(string[] args)
@@ -73,8 +77,21 @@ namespace LaunchLocker.Library
             Communicator.WriteSentence("Lock file created.");
 
             Communicator.WriteSentence("Launching file.");
-            // Launcher.Launch();
-            Unlocker.RemoveLock();
+
+            try
+            {
+                Launcher.Run();
+                Communicator.WriteSentence("File closed.");
+            }
+            catch
+            {
+                Communicator.WriteSentence("Process ended unexpectedly.");                
+            }
+            finally
+            {
+                Unlocker.RemoveLock();
+            }
+            
             Communicator.WriteSentence("Lock file removed.");
             return;
         }

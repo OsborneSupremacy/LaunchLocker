@@ -2,6 +2,7 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics.CodeAnalysis;
 using System.IO.Abstractions.TestingHelpers;
+using System.Linq;
 
 namespace LaunchLocker.Tests
 {
@@ -61,5 +62,21 @@ namespace LaunchLocker.Tests
 
             IsValid.Should().BeTrue();
         }
+
+        [TestMethod]
+        public void CheckIfValid_Should_Identify_CLAs()
+        {
+            var testFile = @"C:\Test.txt";
+            FileSystem.AddFile(testFile, new MockFileData("Test"));
+
+            var config = new Library.Configuration(FileSystem);
+
+            config.CheckIfValid(new string[] { testFile, "two", "three", "four" }, out string message);
+
+            config.TargetClas.Count().Should().Be(3);
+            config.TargetClas.Should().Contain("two");
+            config.TargetClas.Should().Contain("four");
+        }
+
     }
 }

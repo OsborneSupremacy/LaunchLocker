@@ -20,6 +20,7 @@ namespace LaunchLocker.Library
             serviceCollection.AddSingleton<ICommunicator, ConsoleCommunicator>();
             serviceCollection.AddSingleton<ILaunchLockProcess, LaunchLockProcess>();
             serviceCollection.AddSingleton<IUnlocker, Unlocker>();
+            serviceCollection.AddSingleton<ILauncher, Launcher>();
 
             return serviceCollection.BuildServiceProvider();
         }
