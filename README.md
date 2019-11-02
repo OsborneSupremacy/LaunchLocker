@@ -10,7 +10,9 @@ If there's a file on a network share or shared folder (e.g. a DropBox folder), m
 
 If all potential users of that file use this app to launch the target file, the app will create temporary lock files to prevent the file being opened by more than one user concurrently.
 
-Users will want to use a batch file that calls LaunchLocker with the necessary command line arguments.
+![Use case example](UseCase01.PNG)
+
+Users will want to use a shortcut or batch file that calls LaunchLocker with the necessary command line arguments.
 
 ## HOW TO USE
 
