@@ -14,20 +14,28 @@ Users will want to use a batch file that calls LaunchLocker with the necessary c
 
 ## HOW TO USE
 
-To run as a DLL:
+It is recommended that you compile LaunchLocker.UI to an EXE. You can do this by creating a publish profile with a self-contained deployment mode, then publishing LaunchLocker.UI.
+
+Once you have it compiled to an EXE, create a shortcut that targets the path of LaunchLocker.UI.exe, followed by the file you want to launch.
+
+It's best if the shortcut has the full path of both LaunchLocker.UI.exe and the file you want to launch.
+
+Example of a shortcut's target:
 
 ```
-dotnet LaunchLocker.UI.dll "C:\temp\targetFile.txt"
+C:\FullPathOfThisExe\LaunchLocker.UI.exe "C:\temp\targetFile.txt"
 ```
 
-To run as a DLL:
+Alternatively, you can run the EXE from a command prompt or batch file:
 ```
 LaunchLocker.UI.exe "C:\temp\targetFile.txt"
 ```
 
-(You can compile to an EXE by creating publish profile with a self-contained deployment mode.)
+Or you can run the DLL:
 
-You'll probably want to save one of those commands as a .bat file. Whenever you want to use the file, open it using that .bat file.
+```
+dotnet LaunchLocker.UI.dll "C:\temp\targetFile.txt"
+```
 
 If you need to pass in additional command line arguments, you can pass them in after the target file name.
 
