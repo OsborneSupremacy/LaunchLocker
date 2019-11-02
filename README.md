@@ -25,6 +25,8 @@ To run as a DLL:
 LaunchLocker.UI.exe "C:\temp\targetFile.txt"
 ```
 
+(You can compile to an EXE by creating publish profile with a self-contained deployment mode.)
+
 You'll probably want to save one of those commands as a .bat file. Whenever you want to use the file, open it using that .bat file.
 
 If you need to pass in additional command line arguments, you can pass them in after the target file name.

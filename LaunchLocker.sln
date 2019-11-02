@@ -7,9 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchLocker.UI", "LaunchLo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchLocker.Library", "LaunchLocker.Library\LaunchLocker.Library.csproj", "{A7FFC8F7-5ED8-4C09-8C98-0260950D0A50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchLocker.Tests", "LaunchLocker.Tests\LaunchLocker.Tests.csproj", "{3E54FF34-61DB-4BB9-8829-86B7C4308FEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchLocker.Tests", "LaunchLocker.Tests\LaunchLocker.Tests.csproj", "{3E54FF34-61DB-4BB9-8829-86B7C4308FEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LaunchLocker.Interface", "LaunchLocker.Interface\LaunchLocker.Interface.csproj", "{8ECE0D4E-3004-44DE-BB06-0C0FDFD64E36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LaunchLocker.Interface", "LaunchLocker.Interface\LaunchLocker.Interface.csproj", "{8ECE0D4E-3004-44DE-BB06-0C0FDFD64E36}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A9D5CB72-7707-4EBB-ACB8-D47CF9DED8C8}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
