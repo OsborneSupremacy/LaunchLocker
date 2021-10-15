@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace LaunchLocker.UI
 {
@@ -20,8 +21,13 @@ namespace LaunchLocker.UI
                     services.AddHostedService<ConsoleHostedService>();
                     services.RegisterServices();
 
+                    services.Configure<Settings>(configuration.GetSection(nameof(Settings)));
+
                     services.AddOptions();
-                    services.Configure<Settings>(configuration.GetSection("Settings"));
+
+                    services.AddSingleton(sp =>
+                        sp.GetRequiredService<IOptions<Settings>>().Value);
+
                 })
                 .RunConsoleAsync()
                 .GetAwaiter()

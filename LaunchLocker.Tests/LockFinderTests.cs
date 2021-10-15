@@ -17,7 +17,9 @@ namespace LaunchLocker.Tests
         [TestMethod]
         public void DoesLockExist_Should_BeFalse_When_Lock_Absent()
         {
-            LockFinder.DoesLockExist().Should().BeFalse();
+            var (lockExists, _) = LockFinder.DoesLockExist();
+
+            lockExists.Should().BeFalse();
         }
 
         [TestMethod]
@@ -25,8 +27,10 @@ namespace LaunchLocker.Tests
         {
             FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}.launchlock", "lock");
 
-            LockFinder.DoesLockExist().Should().BeTrue();
-            LockFinder.LockInfoCollection.Length.Should().Be(1);
+            var (lockExists, lockInfoCollection) = LockFinder.DoesLockExist();
+
+            lockExists.Should().BeTrue();
+            lockInfoCollection.Length.Should().Be(1);
         }
 
         [TestMethod]
@@ -35,9 +39,78 @@ namespace LaunchLocker.Tests
             FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}.launchlock", "lock");
             FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}.launchlock", "lock");
 
-            LockFinder.DoesLockExist().Should().BeTrue();
-            LockFinder.LockInfoCollection.Length.Should().Be(2);
+            var (lockExists, lockInfoCollection) = LockFinder.DoesLockExist();
+
+            lockExists.Should().BeTrue();
+            lockInfoCollection.Length.Should().Be(2);
         }
 
+        [TestMethod]
+        public void No_Problem_Indicators_When_No_Values_In_Settings()
+        {
+            FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}.conflicted", string.Empty);
+
+            var (pExists, pCollection) = LockFinder.DoesProblemIndicatorExist();
+
+            pExists.Should().BeFalse();
+            pCollection.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public void No_Problem_Indicators_When_No_Files_Problematic()
+        {
+            FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}", string.Empty);
+            FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}", string.Empty);
+
+            Settings.ProblemIndicators.Add("conflicted");
+
+            var (pExists, pCollection) = LockFinder.DoesProblemIndicatorExist();
+
+            pExists.Should().BeFalse();
+            pCollection.Should().BeEmpty();
+        }
+
+        [TestMethod]
+        public void Problem_Indicator_Found_When_One_Files_Problematic()
+        {
+            FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}", string.Empty);
+            FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}.CONFLICTED", string.Empty);
+
+            Settings.ProblemIndicators.Add("conflicted");
+
+            var (pExists, pCollection) = LockFinder.DoesProblemIndicatorExist();
+
+            pExists.Should().BeTrue();
+            pCollection.Length.Should().Be(1);
+        }
+
+        [TestMethod]
+        public void Problem_Indicator_Found_When_Two_Files_Problematic()
+        {
+            FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}.conflicted", string.Empty);
+            FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}.CONFLICTED", string.Empty);
+
+            Settings.ProblemIndicators.Add("conflicted");
+
+            var (pExists, pCollection) = LockFinder.DoesProblemIndicatorExist();
+
+            pExists.Should().BeTrue();
+            pCollection.Length.Should().Be(2);
+        }
+
+        [TestMethod]
+        public void Problem_Indicator_File_Only_Identified_Once()
+        {
+            FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}", string.Empty);
+            FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}.CONFLICTED.bad", string.Empty);
+
+            Settings.ProblemIndicators.Add("conflicted");
+            Settings.ProblemIndicators.Add("bad");
+
+            var (pExists, pCollection) = LockFinder.DoesProblemIndicatorExist();
+
+            pExists.Should().BeTrue();
+            pCollection.Length.Should().Be(1);
+        }
     }
 }

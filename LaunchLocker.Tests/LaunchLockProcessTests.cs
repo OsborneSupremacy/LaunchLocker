@@ -66,6 +66,19 @@ namespace LaunchLocker.Tests
             Communicator.Messages.Should().Contain("Launching file.");
         }
 
+
+        [TestMethod]
+        public void Execute_Should_Not_Launch_File_When_No_Problem_Indicator_Present()
+        {
+            FileSystem.AddFile(TestFileName, new Bogus.Faker().Lorem.Paragraphs(3));
+            FileSystem.AddFile(TestFileName + ".bad", new Bogus.Faker().Lorem.Paragraphs(3));
+
+            Settings.ProblemIndicators.Add("bad");
+
+            LaunchLockProcess.Execute(new string[] { string.Empty, TestFileName });
+            Communicator.Messages.Should().Contain("Synchronization problem found.");
+        }
+
         [TestMethod]
         public void Execute_Should_Delete_Lock_When_File_Is_Close()
         {
@@ -73,7 +86,9 @@ namespace LaunchLocker.Tests
 
             LaunchLockProcess.Execute(new string[] { string.Empty, TestFileName });
 
-            LockFinder.DoesLockExist().Should().BeFalse();
+            var (lockExists, _) = LockFinder.DoesLockExist();
+
+            lockExists.Should().BeFalse();
         }
 
     }

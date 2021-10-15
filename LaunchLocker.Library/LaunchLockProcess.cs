@@ -46,30 +46,47 @@ namespace LaunchLocker.Library
             Launcher = launcher ?? throw new ArgumentException(nameof(launcher));
         }
 
-        public void Execute(string[] args)
+        public bool Execute(string[] args)
         {
             if (!Configuration.CheckIfValid(args, out string message))
             {
                 Communicator.WriteSentence(message);
                 Communicator.Exit();
-                return;
+                return false;
             }
 
-            if (LockFinder.DoesLockExist())
+            var (lockExists, lockInfoCollection) = LockFinder.DoesLockExist();
+
+            if (lockExists)
             {
-                LockReader.Read();
+                LockReader.Read(lockInfoCollection);
 
                 Unlocker.RemoveObsoleteLocks();
 
-                if (LockFinder.DoesLockExist()) // see if locks still exist
+                (lockExists, lockInfoCollection) = LockFinder.DoesLockExist();
+
+                if (lockExists) // see if locks still exist
                 {
-                    LockReader.Read();
+                    LockReader.Read(lockInfoCollection);
                     Communicator.WriteSentence("File is locked and should not be opened.");
                     Communicator.WriteLockInfo(LockReader.LaunchLocks);
                     Communicator.WriteSentence("Locks can be manually deleted if you believe them to be obsolete.");
                     Communicator.Exit();
-                    return;
+                    return false;
                 }
+            }
+
+            var (problemIndicatorExists, problemIndicatorCollection) = LockFinder.DoesProblemIndicatorExist();
+
+            if(problemIndicatorExists)
+            {
+                Communicator.WriteSentence("Synchronization problem found.");
+                Communicator.WriteSentence("File is not locked, however there are files that suggest there may be a synchronization problem. The files are:");
+                foreach(var pi in problemIndicatorCollection)
+                    Communicator.WriteSentence(pi.Name);
+                Communicator.WriteSentence("This should be investigated and manually resolved.");
+                Communicator.WriteSentence("If this is a false positive, the problem indicator configuration will need to be adjusted.");
+                return false;
             }
 
             LockBuilder.Build();
@@ -93,7 +110,7 @@ namespace LaunchLocker.Library
             }
             
             Communicator.WriteSentence("Lock file removed.");
-            return;
+            return true;
         }
 
     }

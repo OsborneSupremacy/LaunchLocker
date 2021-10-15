@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO.Abstractions;
 
 namespace LaunchLocker.Interface
 {
@@ -10,6 +11,6 @@ namespace LaunchLocker.Interface
     {
         IEnumerable<ILaunchLock> LaunchLocks { get; }
 
-        void Read();
+        void Read(IFileInfo[] lockInfoCollection);
     }
 }

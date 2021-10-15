@@ -2,6 +2,6 @@
 {
     public interface ILaunchLockProcess
     {
-        void Execute(string[] args);
+        bool Execute(string[] args);
     }
 }

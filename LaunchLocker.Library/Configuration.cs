@@ -7,7 +7,12 @@ namespace LaunchLocker.Library
 {
     public class Settings
     {
+        public Settings()
+        {
+            ProblemIndicators = new List<string>();
+        }
 
+        public List<string> ProblemIndicators { get; set; }
     }
 
     public class Configuration : IConfiguration

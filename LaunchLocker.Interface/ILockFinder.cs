@@ -7,8 +7,8 @@ namespace LaunchLocker.Interface
     /// </summary>
     public interface ILockFinder
     {
-        IFileInfo[] LockInfoCollection { get; set; }
+        (bool lockExists, IFileInfo[] lockInfoCollection) DoesLockExist();
 
-        bool DoesLockExist();
+        (bool problemIndicatorExists, IFileInfo[] problemIndicatorCollection) DoesProblemIndicatorExist();
     }
 }

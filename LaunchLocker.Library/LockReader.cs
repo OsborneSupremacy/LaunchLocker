@@ -9,24 +9,21 @@ namespace LaunchLocker.Library
     {
         public IFileSystem FileSytem { get; set; }
 
-        public ILockFinder LockFinder { get; set; }
-
         public IJsonOperations JsonOperations { get; set; }
 
         public IEnumerable<ILaunchLock> LaunchLocks { get; set; }
 
-        public LockReader(IFileSystem fileSystem, ILockFinder lockFinder, IJsonOperations jsonOperations)
+        public LockReader(IFileSystem fileSystem, IJsonOperations jsonOperations)
         {
             FileSytem = fileSystem ?? throw new ArgumentException(nameof(fileSystem));
-            LockFinder = lockFinder ?? throw new ArgumentException(nameof(lockFinder));
             JsonOperations = jsonOperations ?? throw new ArgumentException(nameof(jsonOperations));
         }
 
-        public void Read()
+        public void Read(IFileInfo[] lockInfoCollection)
         {
             var launchLocks = new List<LaunchLock>();
 
-            foreach (var fileInfo in LockFinder.LockInfoCollection)
+            foreach (var fileInfo in lockInfoCollection)
             {
                 var launchLockString = FileSytem.File.ReadAllText(fileInfo.FullName);
                 launchLocks.Add(JsonOperations.Deserialize(fileInfo.FullName, launchLockString) as LaunchLock);

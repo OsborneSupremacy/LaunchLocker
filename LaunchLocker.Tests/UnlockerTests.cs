@@ -78,8 +78,8 @@ namespace LaunchLocker.Tests
 
         protected IEnumerable<Interface.ILaunchLock> GetCurrentLauchLocks()
         {
-            LockFinder.DoesLockExist();
-            LockReader.Read();
+            var (_, lockInfoCollection) = LockFinder.DoesLockExist();
+            LockReader.Read(lockInfoCollection);
             return LockReader.LaunchLocks;
         }
 

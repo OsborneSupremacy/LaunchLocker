@@ -20,9 +20,9 @@ namespace LaunchLocker.Tests
         {
             FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}.launchlock", "lock");
 
-            LockFinder.DoesLockExist();
+            var (_, lockInfoCollection) = LockFinder.DoesLockExist();
 
-            LockReader.Read();
+            LockReader.Read(lockInfoCollection);
 
             LockReader.LaunchLocks.Count().Should().Be(1);
         }
@@ -36,9 +36,9 @@ namespace LaunchLocker.Tests
             FileSystem.AddFile(fileName1, new Mocks().GetLaunchLockJson(fileName1));
             FileSystem.AddFile(fileName2, new Mocks().GetLaunchLockJson(fileName2));
 
-            LockFinder.DoesLockExist();
+            var (_, lockInfoCollection) = LockFinder.DoesLockExist();
 
-            LockReader.Read();
+            LockReader.Read(lockInfoCollection);
 
             LockReader.LaunchLocks.Count().Should().Be(2);
         }
