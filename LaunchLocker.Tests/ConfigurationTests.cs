@@ -26,7 +26,7 @@ namespace LaunchLocker.Tests
             var IsValid = config.CheckIfValid(new string[] { }, out string message);
 
             IsValid.Should().BeFalse();
-            message.Should().Contain("At least one command line argument is required");
+            message.Should().Contain("At least two command line arguments are required");
         }
 
         [TestMethod]
@@ -34,10 +34,10 @@ namespace LaunchLocker.Tests
         {
             var config = new Library.Configuration(FileSystem);
 
-            var IsValid = config.CheckIfValid(new string[] { "" }, out string message);
+            var IsValid = config.CheckIfValid(new string[] { "", "" }, out string message);
 
             IsValid.Should().BeFalse();
-            message.Should().Contain("The first command line argument should be the file to be launched");
+            message.Should().Contain("The second command line argument should be the file to be launched");
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace LaunchLocker.Tests
         {
             var config = new Library.Configuration(FileSystem);
 
-            var IsValid = config.CheckIfValid(new string[] { @"C:\Test.txt" }, out string message);
+            var IsValid = config.CheckIfValid(new string[] { "", @"C:\Test.txt" }, out string message);
 
             IsValid.Should().BeFalse();
         }
@@ -58,7 +58,7 @@ namespace LaunchLocker.Tests
 
             var config = new Library.Configuration(FileSystem);
 
-            var IsValid = config.CheckIfValid(new string[] { testFile }, out string message);
+            var IsValid = config.CheckIfValid(new string[] { "", testFile }, out string message);
 
             IsValid.Should().BeTrue();
         }
@@ -71,7 +71,7 @@ namespace LaunchLocker.Tests
 
             var config = new Library.Configuration(FileSystem);
 
-            config.CheckIfValid(new string[] { testFile, "two", "three", "four" }, out string message);
+            config.CheckIfValid(new string[] { "", testFile, "two", "three", "four" }, out string message);
 
             config.TargetClas.Count().Should().Be(3);
             config.TargetClas.Should().Contain("two");

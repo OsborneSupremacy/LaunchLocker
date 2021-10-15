@@ -43,7 +43,7 @@ namespace LaunchLocker.Tests
 
             launchLock.IsValid.Should().Be(true);
             launchLock.FileName.Should().Be(FileName);
-            launchLock.LockTime.Should().BeCloseTo(lockTime);
+            launchLock.LockTime.Should().BeCloseTo(lockTime, new TimeSpan(0, 0, 2));
             launchLock.Username.Should().Be(userName);
         }
 

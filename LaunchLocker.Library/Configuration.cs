@@ -5,6 +5,11 @@ using System.Linq;
 
 namespace LaunchLocker.Library
 {
+    public class Settings
+    {
+
+    }
+
     public class Configuration : IConfiguration
     {
         public IFileSystem FileSystem { get; set; }
@@ -22,17 +27,17 @@ namespace LaunchLocker.Library
         {
             message = string.Empty;
 
-            if (args.Length == 0)
+            if (args.Count() < 2)
             {
-                message = "At least one command line argument is required.";
+                message = "At least two command line arguments are required.";
                 return false;
             };
 
-            string targetFileName = args[0];
+            string targetFileName = args[1];
 
             if (string.IsNullOrEmpty(targetFileName))
             {
-                message = "The first command line argument should be the file to be launched.";
+                message = "The second command line argument should be the file to be launched.";
                 return false;
             }
 
@@ -46,8 +51,8 @@ namespace LaunchLocker.Library
 
             // handle additional CLAs
             var targetClas = new List<string>();
-            if(args.Length > 1)            
-                targetClas.AddRange(args.Skip(1)); // don't return the first CLA, since that's the target file
+            if(args.Length > 2)
+                targetClas.AddRange(args.Skip(2)); // don't return the second CLA, since that's the target file
 
             TargetClas = targetClas;
 

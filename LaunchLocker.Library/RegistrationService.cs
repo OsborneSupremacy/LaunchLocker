@@ -4,12 +4,10 @@ using System.IO.Abstractions;
 
 namespace LaunchLocker.Library
 {
-    public class ContainerConfig
+    public static class RegistrationService
     {
-        public static ServiceProvider Configure()
+        public static IServiceCollection RegisterServices(this IServiceCollection serviceCollection)
         {
-            var serviceCollection = new ServiceCollection();
-
             serviceCollection.AddSingleton<IFileSystem, FileSystem>();
             serviceCollection.AddSingleton<IJsonOperations, JsonOperations>();
             serviceCollection.AddSingleton<IConfiguration, Configuration>();
@@ -21,8 +19,7 @@ namespace LaunchLocker.Library
             serviceCollection.AddSingleton<ILaunchLockProcess, LaunchLockProcess>();
             serviceCollection.AddSingleton<IUnlocker, Unlocker>();
             serviceCollection.AddSingleton<ILauncher, Launcher>();
-
-            return serviceCollection.BuildServiceProvider();
+            return serviceCollection;
         }
 
     }

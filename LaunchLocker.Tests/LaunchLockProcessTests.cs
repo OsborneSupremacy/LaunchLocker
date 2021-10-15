@@ -20,7 +20,7 @@ namespace LaunchLocker.Tests
             FileSystem.AddFile(TestFileName, new Bogus.Faker().Lorem.Paragraphs(3));
             FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}.launchlock", new Mocks().GetLaunchLockJson(TestFileName));
 
-            LaunchLockProcess.Execute(new string[] { TestFileName });
+            LaunchLockProcess.Execute(new string[] { string.Empty, TestFileName });
             Communicator.Messages.Should().Contain("File is locked and should not be opened.");
         }
 
@@ -30,7 +30,7 @@ namespace LaunchLocker.Tests
             FileSystem.AddFile(TestFileName, new Bogus.Faker().Lorem.Paragraphs(3));
             FileSystem.AddFile($"{TestFileName}.{Guid.NewGuid()}.launchlock", "lock");
 
-            LaunchLockProcess.Execute(new string[] { TestFileName });
+            LaunchLockProcess.Execute(new string[] { string.Empty, TestFileName });
 
             Communicator.Messages.Should().Contain("Launching file.");
         }
@@ -52,7 +52,7 @@ namespace LaunchLocker.Tests
 
             FileSystem.AddFile(launchLock.FileName, launchLockJson);
 
-            LaunchLockProcess.Execute(new string[] { TestFileName });
+            LaunchLockProcess.Execute(new string[] { string.Empty, TestFileName });
 
             Communicator.Messages.Should().Contain("Launching file.");
         }
@@ -62,7 +62,7 @@ namespace LaunchLocker.Tests
         {
             FileSystem.AddFile(TestFileName, new Bogus.Faker().Lorem.Paragraphs(3));
 
-            LaunchLockProcess.Execute(new string[] { TestFileName });
+            LaunchLockProcess.Execute(new string[] { string.Empty, TestFileName });
             Communicator.Messages.Should().Contain("Launching file.");
         }
 
@@ -71,7 +71,7 @@ namespace LaunchLocker.Tests
         {
             FileSystem.AddFile(TestFileName, new Bogus.Faker().Lorem.Paragraphs(3));
 
-            LaunchLockProcess.Execute(new string[] { TestFileName });
+            LaunchLockProcess.Execute(new string[] { string.Empty, TestFileName });
 
             LockFinder.DoesLockExist().Should().BeFalse();
         }

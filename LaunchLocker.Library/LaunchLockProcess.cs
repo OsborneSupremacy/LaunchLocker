@@ -85,7 +85,7 @@ namespace LaunchLocker.Library
             }
             catch
             {
-                Communicator.WriteSentence("Process ended unexpectedly.");                
+                Communicator.WriteSentence("Process ended unexpectedly.");
             }
             finally
             {

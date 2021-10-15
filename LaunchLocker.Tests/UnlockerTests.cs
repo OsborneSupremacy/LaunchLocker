@@ -13,7 +13,7 @@ namespace LaunchLocker.Tests
     {
         public override void Intialize()
         {
-            Configuration.CheckIfValid(new string[] { TestFileName }, out string message);
+            Configuration.CheckIfValid(new string[] { string.Empty, TestFileName }, out string message);
 
         }
 

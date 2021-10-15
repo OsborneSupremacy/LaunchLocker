@@ -26,7 +26,7 @@ namespace LaunchLocker.Library
                     FileName = Configuration.TargetFileInfo.FullName,
                     UseShellExecute = true,
                     Arguments = args.ToString()
-                }                
+                }
             };
 
             process.Start();

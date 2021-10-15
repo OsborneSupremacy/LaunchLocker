@@ -1,19 +1,31 @@
-﻿using LaunchLocker.Interface;
-using LaunchLocker.Library;
+﻿using LaunchLocker.Library;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace LaunchLocker.UI
 {
-    public class Program
+    class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
-            var serviceScopeFactory = ContainerConfig.Configure().GetRequiredService<IServiceScopeFactory>();
-            using (var scope = serviceScopeFactory.CreateScope())
-            {
-                var launchLockProcess = scope.ServiceProvider.GetRequiredService<ILaunchLockProcess>();
-                launchLockProcess.Execute(args);
-            }
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json");
+
+            var configuration = builder.Build();
+
+            Host.CreateDefaultBuilder(args)
+                .ConfigureServices((hostContext, services) => {
+
+                    services.AddHostedService<ConsoleHostedService>();
+                    services.RegisterServices();
+
+                    services.AddOptions();
+                    services.Configure<Settings>(configuration.GetSection("Settings"));
+                })
+                .RunConsoleAsync()
+                .GetAwaiter()
+                .GetResult(); 
         }
     }
 }
