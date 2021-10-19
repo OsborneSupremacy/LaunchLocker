@@ -33,12 +33,7 @@ namespace LaunchLocker.UI
             { 
                 try
                 {
-                    var success = _launchLockProcess.Execute(Environment.GetCommandLineArgs());
-                    if(!success)
-                    {
-                        Console.WriteLine("Press any key to exit");
-                        Console.ReadKey();
-                    }
+                    _launchLockProcess.Execute(Environment.GetCommandLineArgs());
                 }
                 catch (Exception ex)
                 {
