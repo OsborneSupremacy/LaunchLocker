@@ -29,11 +29,13 @@ namespace LaunchLocker.UI
         {
             var args = Environment.GetCommandLineArgs();
 
-            _applicationLifetime.ApplicationStarted.Register(() => 
+            _applicationLifetime.ApplicationStarted.Register(async () => 
             { 
                 try
                 {
-                    _launchLockProcess.Execute(Environment.GetCommandLineArgs());
+                    await Task.Run(() => {
+                        _launchLockProcess.Execute(Environment.GetCommandLineArgs());
+                    });
                 }
                 catch (Exception ex)
                 {
