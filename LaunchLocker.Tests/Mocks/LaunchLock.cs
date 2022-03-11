@@ -14,8 +14,8 @@ namespace LaunchLocker.Tests
             {
                 FileName = fileName,
                 IsValid = true,
-                Username = 
-                    useCurrentUser 
+                Username =
+                    useCurrentUser
                     ? System.Security.Principal.WindowsIdentity.GetCurrent().Name
                     : new Faker().Internet.UserName(),
                 LockTime = new Bogus.DataSets.Date().Past(1)

@@ -17,7 +17,7 @@ namespace LaunchLocker.Library
         public const string lockFileExtension = "launchlock";
 
         public LockFinder(
-            IFileSystem fileSystem, 
+            IFileSystem fileSystem,
             IConfiguration configuration,
             Settings settings
         )
@@ -46,9 +46,11 @@ namespace LaunchLocker.Library
 
             var problemFiles = new HashSet<IFileInfo>();
 
-            foreach(var file in allFiles)
-                foreach(var indicator in _settings.ProblemIndicators) {
-                    if(file.Name.ToLowerInvariant().Contains(indicator.ToLowerInvariant())) {
+            foreach (var file in allFiles)
+                foreach (var indicator in _settings.ProblemIndicators)
+                {
+                    if (file.Name.ToLowerInvariant().Contains(indicator.ToLowerInvariant()))
+                    {
                         problemFiles.Add(file);
                         break;
                     }

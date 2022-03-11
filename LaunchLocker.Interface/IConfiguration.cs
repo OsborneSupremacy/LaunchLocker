@@ -11,7 +11,7 @@ namespace LaunchLocker.Interface
         IFileInfo TargetFileInfo { get; }
 
         // target command-line arguments we'll pass through to target file
-        IEnumerable<string> TargetClas { get;  }
+        IEnumerable<string> TargetClas { get; }
 
         bool CheckIfValid(string[] args, out string message);
     }

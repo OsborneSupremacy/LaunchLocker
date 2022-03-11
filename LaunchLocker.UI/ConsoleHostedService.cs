@@ -15,8 +15,8 @@ namespace LaunchLocker.UI
         private readonly ICommunicator _communicator;
 
         public ConsoleHostedService(
-            IHostApplicationLifetime applicationLifetime, 
-            ILaunchLockProcess launchLockProcess, 
+            IHostApplicationLifetime applicationLifetime,
+            ILaunchLockProcess launchLockProcess,
             ICommunicator communicator
         )
         {
@@ -29,11 +29,12 @@ namespace LaunchLocker.UI
         {
             var args = Environment.GetCommandLineArgs();
 
-            _applicationLifetime.ApplicationStarted.Register(async () => 
-            { 
+            _applicationLifetime.ApplicationStarted.Register(async () =>
+            {
                 try
                 {
-                    await Task.Run(() => {
+                    await Task.Run(() =>
+                    {
                         _launchLockProcess.Execute(Environment.GetCommandLineArgs());
                     });
                 }

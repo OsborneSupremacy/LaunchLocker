@@ -78,11 +78,11 @@ namespace LaunchLocker.Library
 
             var (problemIndicatorExists, problemIndicatorCollection) = LockFinder.DoesProblemIndicatorExist();
 
-            if(problemIndicatorExists)
+            if (problemIndicatorExists)
             {
                 Communicator.WriteSentence("Synchronization problem found.");
                 Communicator.WriteSentence("File is not locked, however there are files that suggest there may be a synchronization problem. The files are:");
-                foreach(var pi in problemIndicatorCollection)
+                foreach (var pi in problemIndicatorCollection)
                     Communicator.WriteSentence(pi.Name);
                 Communicator.WriteSentence("This should be investigated and manually resolved.");
                 Communicator.WriteSentence("If this is a false positive, the problem indicator configuration will need to be adjusted.");
@@ -108,7 +108,7 @@ namespace LaunchLocker.Library
             {
                 Unlocker.RemoveLock();
             }
-            
+
             Communicator.WriteSentence("Lock file removed.");
             return true;
         }

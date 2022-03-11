@@ -33,7 +33,7 @@ namespace LaunchLocker.Tests
             Unlocker.RemoveLock();
 
             GetCurrentLauchLocks().Count().Should().Be(1);
-            
+
         }
 
         [TestMethod]

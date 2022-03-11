@@ -56,7 +56,7 @@ namespace LaunchLocker.Library
 
             // handle additional CLAs
             var targetClas = new List<string>();
-            if(args.Length > 2)
+            if (args.Length > 2)
                 targetClas.AddRange(args.Skip(2)); // don't return the second CLA, since that's the target file
 
             TargetClas = targetClas;
