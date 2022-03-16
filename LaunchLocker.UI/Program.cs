@@ -19,7 +19,6 @@ namespace LaunchLocker.UI
             await Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-
                     services.AddHostedService<ConsoleHostedService>();
                     services.RegisterServices();
 
