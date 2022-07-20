@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO.Abstractions;
-using System.Linq;
+﻿using System.IO.Abstractions;
 using System.Runtime.InteropServices;
-using LaunchLocker.Interface;
 
 namespace LaunchLocker.Library;
 

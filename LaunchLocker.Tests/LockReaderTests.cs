@@ -1,10 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using FluentAssertions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace LaunchLocker.Tests;
+﻿namespace LaunchLocker.Tests;
 
 [ExcludeFromCodeCoverage]
 [TestClass]

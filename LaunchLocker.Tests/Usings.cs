@@ -1,0 +1,10 @@
+﻿global using System;
+global using System.Collections.Generic;
+global using System.Diagnostics;
+global using System.Diagnostics.CodeAnalysis;
+global using System.IO.Abstractions.TestingHelpers;
+global using System.Linq;
+global using FluentAssertions;
+global using LaunchLocker.Interface;
+global using LaunchLocker.Library;
+global using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace LaunchLocker.Interface;
+﻿namespace LaunchLocker.Interface;
 
 /// <summary>
 /// Interact with user.

@@ -1,5 +1,4 @@
 ﻿using System.IO.Abstractions;
-using LaunchLocker.Interface;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LaunchLocker.Library;

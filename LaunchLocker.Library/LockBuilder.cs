@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using LaunchLocker.Interface;
+﻿using System.Runtime.InteropServices;
 
 namespace LaunchLocker.Library;
 

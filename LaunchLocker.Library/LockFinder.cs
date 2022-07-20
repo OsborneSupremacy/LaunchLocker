@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Abstractions;
-using System.Linq;
-using LaunchLocker.Interface;
+﻿using System.IO.Abstractions;
 
 namespace LaunchLocker.Library;
 
@@ -14,7 +10,7 @@ public class LockFinder : ILockFinder
 
     public IConfiguration Configuration { get; set; }
 
-    public const string lockFileExtension = "launchlock";
+    public const string LockFileExtension = "launchlock";
 
     public LockFinder(
         IFileSystem fileSystem,
@@ -29,7 +25,7 @@ public class LockFinder : ILockFinder
 
     public (bool lockExists, IFileInfo[] lockInfoCollection) DoesLockExist()
     {
-        var lockInfoCollection = Configuration.TargetFileInfo.Directory.GetFiles($@"{Configuration.TargetFileInfo.Name}.*.{lockFileExtension}");
+        var lockInfoCollection = Configuration.TargetFileInfo.Directory.GetFiles($@"{Configuration.TargetFileInfo.Name}.*.{LockFileExtension}");
         var lockExists = (lockInfoCollection.Length > 0);
         return (lockExists, lockInfoCollection);
     }
