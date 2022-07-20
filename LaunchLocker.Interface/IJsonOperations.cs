@@ -1,9 +1,8 @@
-﻿namespace LaunchLocker.Interface
-{
-    public interface IJsonOperations
-    {
-        string Serialize(object input);
+﻿namespace LaunchLocker.Interface;
 
-        ILaunchLock Deserialize(string fileName, string input);
-    }
+public interface IJsonOperations
+{
+    string Serialize(object input);
+
+    ILaunchLock Deserialize(string fileName, string input);
 }

@@ -1,10 +1,9 @@
-﻿namespace LaunchLocker.Interface
+﻿namespace LaunchLocker.Interface;
+
+public interface IUnlocker
 {
-    public interface IUnlocker
-    {
-        void RemoveLock();
+    void RemoveLock();
 
-        void RemoveObsoleteLocks();
+    void RemoveObsoleteLocks();
 
-    }
 }

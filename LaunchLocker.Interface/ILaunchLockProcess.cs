@@ -1,7 +1,6 @@
-﻿namespace LaunchLocker.Interface
+﻿namespace LaunchLocker.Interface;
+
+public interface ILaunchLockProcess
 {
-    public interface ILaunchLockProcess
-    {
-        bool Execute(string[] args);
-    }
+    bool Execute(string[] args);
 }

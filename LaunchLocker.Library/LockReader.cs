@@ -1,35 +1,34 @@
-﻿using LaunchLocker.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO.Abstractions;
+using LaunchLocker.Interface;
 
-namespace LaunchLocker.Library
+namespace LaunchLocker.Library;
+
+public class LockReader : ILockReader
 {
-    public class LockReader : ILockReader
+    public IFileSystem FileSytem { get; set; }
+
+    public IJsonOperations JsonOperations { get; set; }
+
+    public IEnumerable<ILaunchLock> LaunchLocks { get; set; }
+
+    public LockReader(IFileSystem fileSystem, IJsonOperations jsonOperations)
     {
-        public IFileSystem FileSytem { get; set; }
+        FileSytem = fileSystem ?? throw new ArgumentException(null, nameof(fileSystem));
+        JsonOperations = jsonOperations ?? throw new ArgumentException(null, nameof(jsonOperations));
+    }
 
-        public IJsonOperations JsonOperations { get; set; }
+    public void Read(IFileInfo[] lockInfoCollection)
+    {
+        var launchLocks = new List<LaunchLock>();
 
-        public IEnumerable<ILaunchLock> LaunchLocks { get; set; }
-
-        public LockReader(IFileSystem fileSystem, IJsonOperations jsonOperations)
+        foreach (var fileInfo in lockInfoCollection)
         {
-            FileSytem = fileSystem ?? throw new ArgumentException(nameof(fileSystem));
-            JsonOperations = jsonOperations ?? throw new ArgumentException(nameof(jsonOperations));
+            var launchLockString = FileSytem.File.ReadAllText(fileInfo.FullName);
+            launchLocks.Add(JsonOperations.Deserialize(fileInfo.FullName, launchLockString) as LaunchLock);
         }
 
-        public void Read(IFileInfo[] lockInfoCollection)
-        {
-            var launchLocks = new List<LaunchLock>();
-
-            foreach (var fileInfo in lockInfoCollection)
-            {
-                var launchLockString = FileSytem.File.ReadAllText(fileInfo.FullName);
-                launchLocks.Add(JsonOperations.Deserialize(fileInfo.FullName, launchLockString) as LaunchLock);
-            }
-
-            LaunchLocks = launchLocks;
-        }
+        LaunchLocks = launchLocks;
     }
 }

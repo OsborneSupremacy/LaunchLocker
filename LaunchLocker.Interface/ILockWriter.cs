@@ -1,10 +1,9 @@
-﻿namespace LaunchLocker.Interface
+﻿namespace LaunchLocker.Interface;
+
+/// <summary>
+/// Writes lock files to disk
+/// </summary>
+public interface ILockWriter
 {
-    /// <summary>
-    /// Writes lock files to disk
-    /// </summary>
-    public interface ILockWriter
-    {
-        void Write();
-    }
+    void Write();
 }

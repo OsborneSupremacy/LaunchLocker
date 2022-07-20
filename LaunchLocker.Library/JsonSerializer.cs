@@ -1,27 +1,26 @@
-﻿using LaunchLocker.Interface;
-using System.Text.Json;
+﻿using System.Text.Json;
+using LaunchLocker.Interface;
 
-namespace LaunchLocker.Library
+namespace LaunchLocker.Library;
+
+public class JsonOperations : IJsonOperations
 {
-    public class JsonOperations : IJsonOperations
+    public ILaunchLock Deserialize(string fileName, string input)
     {
-        public ILaunchLock Deserialize(string fileName, string input)
+        LaunchLock launchLock;
+        try
         {
-            LaunchLock launchLock;
-            try
-            {
-                launchLock = JsonSerializer.Deserialize<LaunchLock>(input);
-                launchLock.IsValid = true;
-            }
-            catch (JsonException)
-            {
-                launchLock = new LaunchLock() { IsValid = false };
-            }
-            launchLock.FileName = fileName;
-            return launchLock;
+            launchLock = JsonSerializer.Deserialize<LaunchLock>(input);
+            launchLock.IsValid = true;
         }
-
-        public string Serialize(object input) =>
-            JsonSerializer.Serialize(input);
+        catch (JsonException)
+        {
+            launchLock = new LaunchLock() { IsValid = false };
+        }
+        launchLock.FileName = fileName;
+        return launchLock;
     }
+
+    public string Serialize(object input) =>
+        JsonSerializer.Serialize(input);
 }

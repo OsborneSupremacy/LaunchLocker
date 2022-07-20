@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.IO.Abstractions;
 
-namespace LaunchLocker.Interface
+namespace LaunchLocker.Interface;
+
+/// <summary>
+/// Holds the parameters passed in and checks their validity
+/// </summary>
+public interface IConfiguration
 {
-    /// <summary>
-    /// Holds the parameters passed in and checks their validity
-    /// </summary>
-    public interface IConfiguration
-    {
-        IFileInfo TargetFileInfo { get; }
+    IFileInfo TargetFileInfo { get; }
 
-        // target command-line arguments we'll pass through to target file
-        IEnumerable<string> TargetClas { get; }
+    // target command-line arguments we'll pass through to target file
+    IEnumerable<string> TargetClas { get; }
 
-        bool CheckIfValid(string[] args, out string message);
-    }
+    bool CheckIfValid(string[] args, out string message);
 }

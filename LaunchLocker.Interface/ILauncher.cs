@@ -1,8 +1,7 @@
-﻿namespace LaunchLocker.Interface
-{
-    public interface ILauncher
-    {
-        void Run();
+﻿namespace LaunchLocker.Interface;
 
-    }
+public interface ILauncher
+{
+    void Run();
+
 }
