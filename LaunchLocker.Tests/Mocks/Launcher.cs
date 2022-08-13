@@ -3,7 +3,7 @@
 [ExcludeFromCodeCoverage]
 public class Launcher : ILauncher
 {
-    public void Run()
+    public async Task RunAsync()
     {
 
 

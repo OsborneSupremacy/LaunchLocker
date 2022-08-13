@@ -33,10 +33,7 @@ public class ConsoleHostedService : IHostedService
         {
             try
             {
-                await Task.Run(() =>
-                {
-                    _launchLockProcess.Execute(Environment.GetCommandLineArgs());
-                });
+                await _launchLockProcess.ExecuteAsync();
             }
             catch (Exception ex)
             {

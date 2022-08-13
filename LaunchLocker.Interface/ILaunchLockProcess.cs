@@ -2,5 +2,5 @@
 
 public interface ILaunchLockProcess
 {
-    bool Execute(string[] args);
+    Task<bool> ExecuteAsync();
 }

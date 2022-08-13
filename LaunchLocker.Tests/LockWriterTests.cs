@@ -1,20 +1,18 @@
-﻿namespace LaunchLocker.Tests;
+﻿/*
+namespace LaunchLocker.Tests;
 
 [ExcludeFromCodeCoverage]
 [TestClass]
 public class LockWriterTests : TestBase
 {
-    public override void Intialize()
-    {
-        Configuration.CheckIfValid(new string[] { string.Empty, TestFileName }, out string message);
-        LockBuilder.Build();
-    }
-
     [TestMethod]
     public void Write_Should_Work()
     {
+        // arrange
+        LockBuilder.Build();
         var expectedFile = LockBuilder.LaunchLock.FileName;
 
+        // act
         LockWriter.Write();
 
         var fileInfo = FileSystem.FileInfo.FromFileName(expectedFile);
@@ -25,3 +23,4 @@ public class LockWriterTests : TestBase
     }
 
 }
+*/

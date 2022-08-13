@@ -4,27 +4,24 @@ namespace LaunchLocker.Library;
 
 public class LockBuilder : ILockBuilder
 {
-    public IConfiguration Configuration { get; set; }
+    private readonly RuntimeArgs _runtimeArgs;
 
-    public LockBuilder(IConfiguration configuration)
+    public LockBuilder(RuntimeArgs runtimeArgs)
     {
-        Configuration = configuration ?? throw new ArgumentException(null, nameof(configuration));
+        _runtimeArgs = runtimeArgs ?? throw new ArgumentException(null, nameof(runtimeArgs));
     }
 
-    public ILaunchLock LaunchLock { get; private set; }
-
-    public void Build()
+    public ILaunchLock Build()
     {
         var username =
             RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ?
             System.Security.Principal.WindowsIdentity.GetCurrent().Name : "Non-windows user";
 
-        LaunchLock = new LaunchLock()
+        return new LaunchLock()
         {
             LockTime = DateTime.Now,
             Username = username,
-            FileName = $"{Configuration.TargetFileInfo.FullName}.{Guid.NewGuid()}.launchlock"
+            FileName = $"{_runtimeArgs.TargetFileInfo.FullName}.{Guid.NewGuid()}.launchlock"
         };
     }
-
 }

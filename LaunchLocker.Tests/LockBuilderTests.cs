@@ -1,14 +1,10 @@
-﻿namespace LaunchLocker.Tests;
+﻿/*
+namespace LaunchLocker.Tests;
 
 [ExcludeFromCodeCoverage]
 [TestClass]
 public class LockBuilderTests : TestBase
 {
-    public override void Intialize()
-    {
-        Configuration.CheckIfValid(new string[] { string.Empty, TestFileName }, out string message);
-    }
-
     [TestMethod]
     public void Build_Should_Work()
     {
@@ -19,3 +15,4 @@ public class LockBuilderTests : TestBase
     }
 
 }
+*/

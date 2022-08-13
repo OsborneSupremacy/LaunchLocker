@@ -6,7 +6,5 @@ namespace LaunchLocker.Interface;
 /// </summary>
 public interface ILockBuilder
 {
-    ILaunchLock LaunchLock { get; }
-
-    void Build();
+    ILaunchLock Build();
 }

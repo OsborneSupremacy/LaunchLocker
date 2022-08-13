@@ -7,7 +7,5 @@ namespace LaunchLocker.Interface;
 /// </summary>
 public interface ILockReader
 {
-    IEnumerable<ILaunchLock> LaunchLocks { get; }
-
-    void Read(IFileInfo[] lockInfoCollection);
+    IEnumerable<ILaunchLock> Read(IFileInfo[] lockInfoCollection);
 }

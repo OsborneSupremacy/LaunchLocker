@@ -1,113 +1,93 @@
-﻿using System.IO.Abstractions;
-
-namespace LaunchLocker.Library;
+﻿namespace LaunchLocker.Library;
 
 public class LaunchLockProcess : ILaunchLockProcess
 {
-    public IConfiguration Configuration { get; set; }
+    private readonly ILockFinder _lockFinder;
 
-    public ILockFinder LockFinder { get; set; }
+    private readonly ILockReader _lockReader;
 
-    public ILockReader LockReader { get; set; }
+    private readonly ILockBuilder _lockBuilder;
 
-    public ILockBuilder LockBuilder { get; set; }
+    private readonly ILockWriter _lockWriter;
 
-    public ILockWriter LockWriter { get; set; }
+    private readonly ICommunicator _communicator;
 
-    public ICommunicator Communicator { get; set; }
+    private readonly IUnlocker _unlocker;
 
-    public IFileSystem FileSystem { get; set; }
-
-    public IUnlocker Unlocker { get; set; }
-
-    public ILauncher Launcher { get; set; }
+    private readonly ILauncher _launcher;
 
     public LaunchLockProcess(
-        IConfiguration configuration,
         ILockFinder lockFinder,
         ILockReader lockReader,
         ILockBuilder lockBuilder,
         ILockWriter lockWriter,
         ICommunicator communicator,
-        IFileSystem fileSystem,
         IUnlocker unlocker,
         ILauncher launcher)
     {
-        Configuration = configuration ?? throw new ArgumentException(null, nameof(configuration));
-        LockFinder = lockFinder ?? throw new ArgumentException(null, nameof(lockFinder));
-        LockBuilder = lockBuilder ?? throw new ArgumentException(null, nameof(lockBuilder));
-        LockReader = lockReader ?? throw new ArgumentException(null, nameof(lockReader));
-        LockWriter = lockWriter ?? throw new ArgumentException(null, nameof(lockWriter));
-        Communicator = communicator ?? throw new ArgumentException(null, nameof(communicator));
-        FileSystem = fileSystem ?? throw new ArgumentException(null, nameof(fileSystem));
-        Unlocker = unlocker ?? throw new ArgumentException(null, nameof(unlocker));
-        Launcher = launcher ?? throw new ArgumentException(null, nameof(launcher));
+        _lockFinder = lockFinder ?? throw new ArgumentException(null, nameof(lockFinder));
+        _lockBuilder = lockBuilder ?? throw new ArgumentException(null, nameof(lockBuilder));
+        _lockReader = lockReader ?? throw new ArgumentException(null, nameof(lockReader));
+        _lockWriter = lockWriter ?? throw new ArgumentException(null, nameof(lockWriter));
+        _communicator = communicator ?? throw new ArgumentException(null, nameof(communicator));
+        _unlocker = unlocker ?? throw new ArgumentException(null, nameof(unlocker));
+        _launcher = launcher ?? throw new ArgumentException(null, nameof(launcher));
     }
 
-    public bool Execute(string[] args)
+    public async Task<bool> ExecuteAsync()
     {
-        if (!Configuration.CheckIfValid(args, out string message))
-        {
-            Communicator.WriteSentence(message);
-            Communicator.Exit();
-            return false;
-        }
-
-        var (lockExists, lockInfoCollection) = LockFinder.DoesLockExist();
+        var (lockExists, lockInfoCollection) = _lockFinder.DoesLockExist();
 
         if (lockExists)
         {
-            LockReader.Read(lockInfoCollection);
+            _unlocker.RemoveObsoleteLocks(lockInfoCollection);
 
-            Unlocker.RemoveObsoleteLocks();
-
-            (lockExists, lockInfoCollection) = LockFinder.DoesLockExist();
+            (lockExists, lockInfoCollection) = _lockFinder.DoesLockExist();
 
             if (lockExists) // see if locks still exist
             {
-                LockReader.Read(lockInfoCollection);
-                Communicator.WriteSentence("File is locked and should not be opened.");
-                Communicator.WriteLockInfo(LockReader.LaunchLocks);
-                Communicator.WriteSentence("Locks can be manually deleted if you believe them to be obsolete.");
-                Communicator.Exit();
+                _communicator.WriteSentence("File is locked and should not be opened.");
+                _communicator.WriteLockInfo(_lockReader.Read(lockInfoCollection));
+                _communicator.WriteSentence("Locks can be manually deleted if you believe them to be obsolete.");
+                _communicator.Exit();
                 return false;
             }
         }
 
-        var (problemIndicatorExists, problemIndicatorCollection) = LockFinder.DoesProblemIndicatorExist();
+        var (problemIndicatorExists, problemIndicatorCollection) = _lockFinder.DoesProblemIndicatorExist();
 
         if (problemIndicatorExists)
         {
-            Communicator.WriteSentence("Synchronization problem found.");
-            Communicator.WriteSentence("File is not locked, however there are files that suggest there may be a synchronization problem. The files are:");
+            _communicator.WriteSentence("Synchronization problem found.");
+            _communicator.WriteSentence("File is not locked, however there are files that suggest there may be a synchronization problem. The files are:");
             foreach (var pi in problemIndicatorCollection)
-                Communicator.WriteSentence(pi.Name);
-            Communicator.WriteSentence("This should be investigated and manually resolved.");
-            Communicator.WriteSentence("If this is a false positive, the problem indicator configuration will need to be adjusted.");
+                _communicator.WriteSentence(pi.Name);
+            _communicator.WriteSentence("This should be investigated and manually resolved.");
+            _communicator.WriteSentence("If this is a false positive, the problem indicator configuration will need to be adjusted.");
             return false;
         }
 
-        LockBuilder.Build();
-        LockWriter.Write();
-        Communicator.WriteSentence("Lock file created.");
+        var lauchLock = _lockBuilder.Build();
+        _lockWriter.Write(lauchLock);
+        _communicator.WriteSentence("Lock file created.");
 
-        Communicator.WriteSentence("Launching file.");
+        _communicator.WriteSentence("Launching file.");
 
         try
         {
-            Launcher.Run();
-            Communicator.WriteSentence("File closed.");
+            await _launcher.RunAsync();
+            _communicator.WriteSentence("File closed.");
         }
         catch
         {
-            Communicator.WriteSentence("Process ended unexpectedly.");
+            _communicator.WriteSentence("Process ended unexpectedly.");
         }
         finally
         {
-            Unlocker.RemoveLock();
+            _unlocker.RemoveLock(lauchLock);
         }
 
-        Communicator.WriteSentence("Lock file removed.");
+        _communicator.WriteSentence("Lock file removed.");
         return true;
     }
 

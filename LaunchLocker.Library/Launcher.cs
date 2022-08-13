@@ -1,33 +1,22 @@
-﻿
+﻿using CliWrap;
+
 namespace LaunchLocker.Library;
 
 public class Launcher : ILauncher
 {
-    public IConfiguration Configuration { get; set; }
+    public RuntimeArgs _runtimeArgs { get; set; }
 
-    public Launcher(IConfiguration configuration)
+    public Launcher(RuntimeArgs runtimeArgs)
     {
-        Configuration = configuration ?? throw new System.ArgumentException(null, nameof(configuration));
+        _runtimeArgs = runtimeArgs ?? throw new System.ArgumentException(null, nameof(runtimeArgs));
     }
 
-    public void Run()
+    public async Task RunAsync()
     {
-        var args = new StringBuilder();
-        foreach (var cla in Configuration.TargetClas)
-            args.Append($" {cla}");
-
-        var process = new Process()
-        {
-            StartInfo = new ProcessStartInfo()
-            {
-                FileName = Configuration.TargetFileInfo.FullName,
-                UseShellExecute = true,
-                Arguments = args.ToString()
-            }
-        };
-
-        process.Start();
-        process.WaitForExit();
+        await Cli.Wrap(_runtimeArgs.TargetFileInfo.FullName)
+            .WithArguments(_runtimeArgs.AdditionalArgs, false)
+            .ExecuteAsync();
+        return;
     }
 
 }

@@ -1,12 +1,10 @@
-﻿
-
+﻿/*
 namespace LaunchLocker.Tests;
 
 [ExcludeFromCodeCoverage]
 public abstract class TestBase
 {
     protected MockFileSystem FileSystem = null;
-    protected Library.Configuration Configuration = null;
     protected Library.LockFinder LockFinder = null;
     protected Library.LockReader LockReader = null;
     protected Library.LockBuilder LockBuilder = null;
@@ -28,34 +26,31 @@ public abstract class TestBase
         TestDirectoryName = @"C:\ProgramFiles";
         TestFileName = $@"{TestDirectoryName}\text.txt";
 
+        var runtimeArgs = new RuntimeArgs(new MockFileSystem(), null);
+
         FileSystem.AddDirectory(TestDirectoryName);
 
         Settings = new Library.Settings();
 
         JsonOperations = new Library.JsonOperations();
-        Configuration = new Library.Configuration(FileSystem);
-        LockFinder = new Library.LockFinder(FileSystem, Configuration, Settings);
+        LockFinder = new Library.LockFinder(FileSystem, runtimeArgs, Settings);
         LockReader = new Library.LockReader(FileSystem, JsonOperations);
-        LockBuilder = new Library.LockBuilder(Configuration);
+        LockBuilder = new Library.LockBuilder(runtimeArgs);
         LockWriter = new Library.LockWriter(FileSystem, JsonOperations, LockBuilder);
         Communicator = new ListCommunicator();
         Unlocker = new Library.Unlocker(FileSystem, LockReader, LockBuilder);
         Launcher = new Launcher();
+
         LaunchLockProcess =
             new Library.LaunchLockProcess(
-                Configuration,
                 LockFinder,
                 LockReader,
                 LockBuilder,
                 LockWriter,
                 Communicator,
-                FileSystem,
                 Unlocker,
-                Launcher);
-
-        Intialize();
-
+                Launcher
+                );
     }
-
-    public abstract void Intialize();
 }
+*/

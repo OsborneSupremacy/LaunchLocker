@@ -4,28 +4,22 @@ namespace LaunchLocker.Library;
 
 public class LockReader : ILockReader
 {
-    public IFileSystem FileSytem { get; set; }
+    private readonly IFileSystem _fileSytem;
 
-    public IJsonOperations JsonOperations { get; set; }
-
-    public IEnumerable<ILaunchLock> LaunchLocks { get; set; }
+    private readonly IJsonOperations _jsonOperations;
 
     public LockReader(IFileSystem fileSystem, IJsonOperations jsonOperations)
     {
-        FileSytem = fileSystem ?? throw new ArgumentException(null, nameof(fileSystem));
-        JsonOperations = jsonOperations ?? throw new ArgumentException(null, nameof(jsonOperations));
+        _fileSytem = fileSystem ?? throw new ArgumentException(null, nameof(fileSystem));
+        _jsonOperations = jsonOperations ?? throw new ArgumentException(null, nameof(jsonOperations));
     }
 
-    public void Read(IFileInfo[] lockInfoCollection)
+    public IEnumerable<ILaunchLock> Read(IFileInfo[] lockInfoCollection)
     {
-        var launchLocks = new List<LaunchLock>();
-
         foreach (var fileInfo in lockInfoCollection)
         {
-            var launchLockString = FileSytem.File.ReadAllText(fileInfo.FullName);
-            launchLocks.Add(JsonOperations.Deserialize(fileInfo.FullName, launchLockString) as LaunchLock);
+            var launchLockString = _fileSytem.File.ReadAllText(fileInfo.FullName);
+            yield return _jsonOperations.Deserialize(fileInfo.FullName, launchLockString);
         }
-
-        LaunchLocks = launchLocks;
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace LaunchLocker.Tests;
+﻿/*using LaunchLocker.Interface;
+
+namespace LaunchLocker.Tests;
 
 [ExcludeFromCodeCoverage]
 [TestClass]
@@ -17,7 +19,18 @@ public class ConfigurationTests
     {
         var config = new Library.Configuration(FileSystem);
 
-        var IsValid = config.CheckIfValid(new string[] { }, out string message);
+        var message = string.Empty;
+
+        var IsValid = config.GetTargetClas(Array.Empty<string>())
+            .Match(success =>
+            {
+                return true;
+            },
+            exception =>
+            {
+                message = exception.Message;
+                return false;
+            });
 
         IsValid.Should().BeFalse();
         message.Should().Contain("At least two command line arguments are required");
@@ -28,7 +41,18 @@ public class ConfigurationTests
     {
         var config = new Library.Configuration(FileSystem);
 
-        var IsValid = config.CheckIfValid(new string[] { "", "" }, out string message);
+        var message = string.Empty;
+
+        var IsValid = config.GetTargetClas(new string[] { "", "" })
+            .Match(success =>
+            {
+                return true;
+            },
+            exception =>
+            {
+                message = exception.Message;
+                return false;
+            });
 
         IsValid.Should().BeFalse();
         message.Should().Contain("The second command line argument should be the file to be launched");
@@ -39,7 +63,18 @@ public class ConfigurationTests
     {
         var config = new Library.Configuration(FileSystem);
 
-        var IsValid = config.CheckIfValid(new string[] { "", @"C:\Test.txt" }, out string message);
+        var message = string.Empty;
+
+        var IsValid = config.GetTargetClas(new string[] { "", @"C:\Test.txt" })
+            .Match(success =>
+            {
+                return true;
+            },
+            exception =>
+            {
+                message = exception.Message;
+                return false;
+            });
 
         IsValid.Should().BeFalse();
     }
@@ -52,7 +87,18 @@ public class ConfigurationTests
 
         var config = new Library.Configuration(FileSystem);
 
-        var IsValid = config.CheckIfValid(new string[] { "", testFile }, out string message);
+        var message = string.Empty;
+
+        var IsValid = config.GetTargetClas(new string[] { "", testFile })
+            .Match(success =>
+            {
+                return true;
+            },
+            exception =>
+            {
+                message = exception.Message;
+                return false;
+            });
 
         IsValid.Should().BeTrue();
     }
@@ -65,11 +111,20 @@ public class ConfigurationTests
 
         var config = new Library.Configuration(FileSystem);
 
-        config.CheckIfValid(new string[] { "", testFile, "two", "three", "four" }, out string message);
+        var targetClas = config.GetTargetClas(new string[] { "", testFile, "two", "three", "four" })
+            .Match(success =>
+            {
+                return success;
+            },
+            exception =>
+            {
+                return Enumerable.Empty<string>();
+            });
 
-        config.TargetClas.Count().Should().Be(3);
-        config.TargetClas.Should().Contain("two");
-        config.TargetClas.Should().Contain("four");
+        targetClas.Count().Should().Be(3);
+        targetClas.Should().Contain("two");
+        targetClas.Should().Contain("four");
     }
 
 }
+*/

@@ -9,7 +9,6 @@ public static class RegistrationService
     {
         serviceCollection.AddSingleton<IFileSystem, FileSystem>();
         serviceCollection.AddSingleton<IJsonOperations, JsonOperations>();
-        serviceCollection.AddSingleton<IConfiguration, Configuration>();
         serviceCollection.AddSingleton<ILockFinder, LockFinder>();
         serviceCollection.AddSingleton<ILockBuilder, LockBuilder>();
         serviceCollection.AddSingleton<ILockWriter, LockWriter>();

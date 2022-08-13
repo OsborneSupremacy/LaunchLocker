@@ -6,27 +6,23 @@ public class LockFinder : ILockFinder
 {
     private readonly Settings _settings;
 
-    public IFileSystem FileSystem { get; set; }
+    private readonly RuntimeArgs _runtimeArgs;
 
-    public IConfiguration Configuration { get; set; }
-
-    public const string LockFileExtension = "launchlock";
+    private const string LockFileExtension = "launchlock";
 
     public LockFinder(
-        IFileSystem fileSystem,
-        IConfiguration configuration,
+        RuntimeArgs runtimeArgs,
         Settings settings
     )
     {
-        FileSystem = fileSystem ?? throw new ArgumentException(null, nameof(fileSystem));
-        Configuration = configuration ?? throw new ArgumentException(null, nameof(configuration));
+        _runtimeArgs = runtimeArgs ?? throw new ArgumentException(null, nameof(runtimeArgs));
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
     }
 
     public (bool lockExists, IFileInfo[] lockInfoCollection) DoesLockExist()
     {
-        var lockInfoCollection = Configuration.TargetFileInfo.Directory.GetFiles($@"{Configuration.TargetFileInfo.Name}.*.{LockFileExtension}");
-        var lockExists = (lockInfoCollection.Length > 0);
+        var lockInfoCollection = _runtimeArgs.TargetFileInfo.Directory.GetFiles($@"{_runtimeArgs.TargetFileInfo.Name}.*.{LockFileExtension}");
+        var lockExists = lockInfoCollection.Length > 0;
         return (lockExists, lockInfoCollection);
     }
 
@@ -35,7 +31,7 @@ public class LockFinder : ILockFinder
         if (!_settings.ProblemIndicators.Any())
             return (false, Enumerable.Empty<IFileInfo>().ToArray());
 
-        var allFiles = Configuration
+        var allFiles = _runtimeArgs
             .TargetFileInfo
             .Directory
             .GetFiles();

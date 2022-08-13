@@ -2,6 +2,5 @@
 
 public interface ILauncher
 {
-    void Run();
-
+    Task RunAsync();
 }

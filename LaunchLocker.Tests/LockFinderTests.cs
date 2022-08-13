@@ -1,13 +1,10 @@
-﻿namespace LaunchLocker.Tests;
+﻿/*
+namespace LaunchLocker.Tests;
 
 [ExcludeFromCodeCoverage]
 [TestClass]
 public class LockFinderTests : TestBase
 {
-    public override void Intialize()
-    {
-        Configuration.CheckIfValid(new string[] { string.Empty, TestFileName }, out string message);
-    }
 
     [TestMethod]
     public void DoesLockExist_Should_BeFalse_When_Lock_Absent()
@@ -108,3 +105,4 @@ public class LockFinderTests : TestBase
         pCollection.Length.Should().Be(1);
     }
 }
+*/

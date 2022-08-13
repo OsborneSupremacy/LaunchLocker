@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO.Abstractions;
+using System.Threading.Tasks;
 using LaunchLocker.Library;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,12 +15,16 @@ class Program
         var builder = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json");
 
+        var runtimeArgs = new RuntimeArgs(new FileSystem(), args);
+
         var configuration = builder.Build();
 
         await Host.CreateDefaultBuilder(args)
             .ConfigureServices((hostContext, services) =>
             {
                 services.AddHostedService<ConsoleHostedService>();
+
+                services.AddSingleton(runtimeArgs);
                 services.RegisterServices();
 
                 services.Configure<Settings>(configuration.GetSection(nameof(Settings)));

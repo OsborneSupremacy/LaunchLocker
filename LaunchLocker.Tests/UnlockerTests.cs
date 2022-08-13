@@ -1,17 +1,10 @@
-﻿
-
+﻿/*
 namespace LaunchLocker.Tests;
 
 [TestClass]
 [ExcludeFromCodeCoverage]
 public class UnlockerTests : TestBase
 {
-    public override void Intialize()
-    {
-        Configuration.CheckIfValid(new string[] { string.Empty, TestFileName }, out string message);
-
-    }
-
     [TestMethod]
     public void RemoveLock_Should_Remove_Current_Lock()
     {
@@ -79,3 +72,4 @@ public class UnlockerTests : TestBase
     }
 
 }
+*/

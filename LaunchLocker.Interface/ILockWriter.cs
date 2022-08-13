@@ -5,5 +5,5 @@
 /// </summary>
 public interface ILockWriter
 {
-    void Write();
+    void Write(ILaunchLock launchLock);
 }

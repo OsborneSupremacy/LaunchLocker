@@ -4,6 +4,7 @@ global using System.Diagnostics;
 global using System.Diagnostics.CodeAnalysis;
 global using System.IO.Abstractions.TestingHelpers;
 global using System.Linq;
+global using System.Threading.Tasks;
 global using FluentAssertions;
 global using LaunchLocker.Interface;
 global using LaunchLocker.Library;

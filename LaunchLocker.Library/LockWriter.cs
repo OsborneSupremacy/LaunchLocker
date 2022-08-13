@@ -4,22 +4,19 @@ namespace LaunchLocker.Library;
 
 public class LockWriter : ILockWriter
 {
-    public IFileSystem FileSystem { get; set; }
+    private readonly IFileSystem _fileSystem;
 
-    public IJsonOperations JsonOperations { get; set; }
+    private readonly IJsonOperations _jsonOperations;
 
-    public ILockBuilder LockBuilder { get; set; }
-
-    public LockWriter(IFileSystem fileSystem, IJsonOperations jsonSerializer, ILockBuilder lockBuilder)
+    public LockWriter(IFileSystem fileSystem, IJsonOperations jsonOperations)
     {
-        FileSystem = fileSystem ?? throw new ArgumentException(null, nameof(fileSystem));
-        JsonOperations = jsonSerializer ?? throw new ArgumentException(null, nameof(jsonSerializer));
-        LockBuilder = lockBuilder ?? throw new ArgumentException(null, nameof(lockBuilder));
+        _fileSystem = fileSystem ?? throw new ArgumentException(null, nameof(fileSystem));
+        _jsonOperations = jsonOperations ?? throw new ArgumentException(null, nameof(jsonOperations));
     }
 
-    public void Write()
+    public void Write(ILaunchLock launchLock)
     {
-        var lockJson = JsonOperations.Serialize(LockBuilder.LaunchLock);
-        FileSystem.File.WriteAllText(LockBuilder.LaunchLock.FileName, lockJson);
+        var lockJson = _jsonOperations.Serialize(launchLock);
+        _fileSystem.File.WriteAllText(launchLock.FileName, lockJson);
     }
 }

@@ -1,14 +1,11 @@
-﻿namespace LaunchLocker.Tests;
+﻿
+/*
+namespace LaunchLocker.Tests;
 
 [ExcludeFromCodeCoverage]
 [TestClass]
 public class LockReaderTests : TestBase
 {
-    public override void Intialize()
-    {
-        Configuration.CheckIfValid(new string[] { string.Empty, TestFileName }, out string message);
-    }
-
     [TestMethod]
     public void Read_Should_Work_When_One_Lock_Present()
     {
@@ -37,3 +34,4 @@ public class LockReaderTests : TestBase
         LockReader.LaunchLocks.Count().Should().Be(2);
     }
 }
+*/

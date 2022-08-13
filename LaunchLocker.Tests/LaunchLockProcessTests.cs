@@ -1,16 +1,11 @@
 ﻿using System.Runtime.InteropServices;
 
 namespace LaunchLocker.Tests;
-
+/*
 [ExcludeFromCodeCoverage]
 [TestClass]
 public class LaunchLockProcessTests : TestBase
 {
-    public override void Intialize()
-    {
-
-    }
-
     [TestMethod]
     public void Execute_Should_Not_Launch_File_When_Locks_Present()
     {
@@ -93,3 +88,4 @@ public class LaunchLockProcessTests : TestBase
     }
 
 }
+*/

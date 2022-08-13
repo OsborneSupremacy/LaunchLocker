@@ -5,33 +5,33 @@ namespace LaunchLocker.Library;
 
 public class Unlocker : IUnlocker
 {
-    public ILockReader LockReader { get; set; }
+    private readonly ILockReader _lockReader;
 
-    public IFileSystem FileSystem { get; set; }
+    private readonly IFileSystem _fileSystem;
 
-    public ILockBuilder LockBuilder { get; set; }
+    private readonly ILockBuilder _lockBuilder;
 
     public Unlocker(IFileSystem fileSystem, ILockReader lockReader, ILockBuilder lockBuilder)
     {
-        FileSystem = fileSystem ?? throw new ArgumentException(null, nameof(fileSystem));
-        LockReader = lockReader ?? throw new ArgumentException(null, nameof(lockReader));
-        LockBuilder = lockBuilder ?? throw new ArgumentException(null, nameof(lockBuilder));
+        _fileSystem = fileSystem ?? throw new ArgumentException(null, nameof(fileSystem));
+        _lockReader = lockReader ?? throw new ArgumentException(null, nameof(lockReader));
+        _lockBuilder = lockBuilder ?? throw new ArgumentException(null, nameof(lockBuilder));
     }
 
-    public void RemoveLock() =>
-        FileSystem.File.Delete(LockBuilder.LaunchLock.FileName);
+    public void RemoveLock(ILaunchLock launchLock) =>
+        _fileSystem.File.Delete(launchLock.FileName);
 
-    public void RemoveObsoleteLocks()
+    public void RemoveObsoleteLocks(IFileInfo[] lockInfoCollection)
     {
         var username =
             RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ?
             System.Security.Principal.WindowsIdentity.GetCurrent().Name : "Non-windows user";
 
-        var obsoleteLocks = LockReader
-            .LaunchLocks
-            .Where(x => !x.IsValid || x.Username.Equals(username, StringComparison.OrdinalIgnoreCase)).ToList();
+        var obsoleteLocks = _lockReader
+            .Read(lockInfoCollection)
+            .Where(x => !x.IsValid || x.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
 
         foreach (var launchLock in obsoleteLocks)
-            FileSystem.File.Delete(launchLock.FileName);
+            _fileSystem.File.Delete(launchLock.FileName);
     }
 }
