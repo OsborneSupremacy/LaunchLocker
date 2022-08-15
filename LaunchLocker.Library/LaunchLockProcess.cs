@@ -78,9 +78,12 @@ public class LaunchLockProcess : ILaunchLockProcess
             await _launcher.RunAsync();
             _communicator.WriteSentence("File closed.");
         }
-        catch
+        catch (Exception ex)
         {
             _communicator.WriteSentence("Process ended unexpectedly.");
+#if DEBUG
+            _communicator.WriteSentence(ex.ToString());
+#endif
         }
         finally
         {

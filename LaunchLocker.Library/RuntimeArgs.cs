@@ -4,31 +4,28 @@ namespace LaunchLocker.Library;
 
 public record RuntimeArgs
 {
-    public IFileInfo TargetFileInfo { get; private set; }
+    /// <summary>
+    /// The program that will run the target file. String rather than FileInfo,
+    /// since executable may be an alias and not a locatable file.
+    /// </summary>
+    public string TargetProgram { get; init; }
 
-    public IList<string> AdditionalArgs { get; private set; }
+    /// <summary>
+    /// The file that will be locked
+    /// </summary>
+    public IFileInfo TargetFile { get; init; }
 
-    public RuntimeArgs(IFileSystem filesystem, string[] args)
+    public IList<string> AdditionalArgs { get; init; }
+
+    public RuntimeArgs(
+        string targetProgram,
+        IFileInfo targetFile,
+        IList<string> additionalArgs
+        )
     {
-        if (args.Length < 2)
-            throw new ArgumentException("At least two command line arguments are required.");
-
-        string targetFileName = args[1];
-
-        if (string.IsNullOrEmpty(targetFileName))
-            throw new ArgumentException("The second command line argument should be the file to be launched.");
-
-        TargetFileInfo = filesystem.FileInfo.FromFileName(targetFileName);
-
-        if (!TargetFileInfo.Exists)
-            throw new ArgumentException($"File `{TargetFileInfo.FullName}` not found");
-
-        // handle additional CLAs
-        List<string> additionalArgs = new();
-        if (args.Length > 2)
-            additionalArgs.AddRange(args.Skip(2)); // skip first (this EXE) and second (target file)
-
-        AdditionalArgs = additionalArgs;
+        TargetProgram = targetProgram ?? throw new ArgumentNullException(nameof(targetProgram));
+        TargetFile = targetFile ?? throw new ArgumentNullException(nameof(targetFile));
+        AdditionalArgs = additionalArgs ?? throw new ArgumentNullException(nameof(additionalArgs));
     }
 }
 

@@ -21,7 +21,7 @@ public class LockBuilder : ILockBuilder
         {
             LockTime = DateTime.Now,
             Username = username,
-            FileName = $"{_runtimeArgs.TargetFileInfo.FullName}.{Guid.NewGuid()}.launchlock"
+            FileName = $"{_runtimeArgs.TargetFile.FullName}.{Guid.NewGuid()}.launchlock"
         };
     }
 }

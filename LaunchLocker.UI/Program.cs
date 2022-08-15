@@ -15,16 +15,30 @@ class Program
         var builder = new ConfigurationBuilder()
             .AddJsonFile("appsettings.json");
 
-        var runtimeArgs = new RuntimeArgs(new FileSystem(), args);
-
         var configuration = builder.Build();
 
-        await Host.CreateDefaultBuilder(args)
+        await new RuntimeArgsBuilder().Build(new FileSystem(), args)
+            .Match<Task<bool>>
+            (
+                async runtimeArgs =>
+                {
+                    return await RunAsync(configuration, runtimeArgs);
+                },
+                exception =>
+                {
+                    return Task.FromResult(false);
+                }
+            );
+    }
+
+    protected static async Task<bool> RunAsync(IConfigurationRoot configuration, RuntimeArgs args)
+    {
+        await Host.CreateDefaultBuilder()
             .ConfigureServices((hostContext, services) =>
             {
                 services.AddHostedService<ConsoleHostedService>();
 
-                services.AddSingleton(runtimeArgs);
+                services.AddSingleton(args);
                 services.RegisterServices();
 
                 services.Configure<Settings>(configuration.GetSection(nameof(Settings)));
@@ -33,9 +47,9 @@ class Program
 
                 services.AddSingleton(sp =>
                     sp.GetRequiredService<IOptions<Settings>>().Value);
-
             })
             .RunConsoleAsync();
-
+        return true;
     }
+
 }

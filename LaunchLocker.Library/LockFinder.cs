@@ -21,7 +21,7 @@ public class LockFinder : ILockFinder
 
     public (bool lockExists, IFileInfo[] lockInfoCollection) DoesLockExist()
     {
-        var lockInfoCollection = _runtimeArgs.TargetFileInfo.Directory.GetFiles($@"{_runtimeArgs.TargetFileInfo.Name}.*.{LockFileExtension}");
+        var lockInfoCollection = _runtimeArgs.TargetFile.Directory.GetFiles($@"{_runtimeArgs.TargetFile.Name}.*.{LockFileExtension}");
         var lockExists = lockInfoCollection.Length > 0;
         return (lockExists, lockInfoCollection);
     }
@@ -32,7 +32,7 @@ public class LockFinder : ILockFinder
             return (false, Enumerable.Empty<IFileInfo>().ToArray());
 
         var allFiles = _runtimeArgs
-            .TargetFileInfo
+            .TargetFile
             .Directory
             .GetFiles();
 

@@ -27,8 +27,6 @@ public class ConsoleHostedService : IHostedService
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
-        var args = Environment.GetCommandLineArgs();
-
         _applicationLifetime.ApplicationStarted.Register(async () =>
         {
             try
@@ -44,7 +42,6 @@ public class ConsoleHostedService : IHostedService
                 _applicationLifetime.StopApplication();
             }
         });
-
         return Task.CompletedTask;
     }
 
