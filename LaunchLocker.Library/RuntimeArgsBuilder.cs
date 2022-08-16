@@ -30,17 +30,22 @@ public class RuntimeArgsBuilder
             (
                 targetFile =>
                 {
-                    return new RuntimeArgs(
-                        args[0].Trim(),
-                        targetFile,
-                        args.Skip(2).ToList()  // skip first (target program) and second (target file)
-                    );
+                    return GetRuntimeArgs(filesystem, args);
                 },
                 exception =>
                 {
                     return new Result<RuntimeArgs>(new AggregateException("The second command line argument should be the file to be locked. " + exception.ToString()));
                 }
             );
+
+    protected static RuntimeArgs GetRuntimeArgs(IFileSystem filesystem, string[] args)
+    {
+        return new RuntimeArgs(
+            filesystem.FileInfo.FromFileName(args[0]),
+            filesystem.FileInfo.FromFileName(args[1]),
+            args.Skip(2).ToList()  // skip first (target program) and second (target file)
+        );
+    }
 
     protected static Result<IFileInfo> GetTarget(IFileSystem filesystem, string fullPath)
     {

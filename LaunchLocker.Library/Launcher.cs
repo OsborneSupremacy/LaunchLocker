@@ -15,7 +15,7 @@ public class Launcher : ILauncher
     public async Task RunAsync()
     {
         var args = new StringBuilder();
-        args.Append(_runtimeArgs.TargetFile);
+        args.Append(_runtimeArgs.TargetFile.FullName);
 
         foreach (var cla in _runtimeArgs.AdditionalArgs)
             args.Append($" {cla}");
@@ -24,7 +24,7 @@ public class Launcher : ILauncher
         {
             StartInfo = new ProcessStartInfo()
             {
-                FileName = _runtimeArgs.TargetProgram,
+                FileName = _runtimeArgs.TargetProgram.FullName,
                 UseShellExecute = true,
                 Arguments = args.ToString()
             }

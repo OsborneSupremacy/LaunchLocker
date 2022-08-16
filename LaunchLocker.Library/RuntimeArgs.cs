@@ -8,7 +8,7 @@ public record RuntimeArgs
     /// The program that will run the target file. String rather than FileInfo,
     /// since executable may be an alias and not a locatable file.
     /// </summary>
-    public string TargetProgram { get; init; }
+    public IFileInfo TargetProgram { get; init; }
 
     /// <summary>
     /// The file that will be locked
@@ -18,7 +18,7 @@ public record RuntimeArgs
     public IList<string> AdditionalArgs { get; init; }
 
     public RuntimeArgs(
-        string targetProgram,
+        IFileInfo targetProgram,
         IFileInfo targetFile,
         IList<string> additionalArgs
         )
