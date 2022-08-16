@@ -7,7 +7,25 @@ public class RuntimeArgsBuilder
         if (args.Length < 2)
             return new Result<RuntimeArgs>(new ArgumentException("At least two command line arguments are required."));
 
-        return GetTarget(filesystem, args[1])
+        return GetProgramToBeLaunched(filesystem, args);
+    }
+
+    protected static Result<RuntimeArgs> GetProgramToBeLaunched(IFileSystem filesystem, string[] args) =>
+        GetTarget(filesystem, args[0])
+            .Match
+            (
+                targetFile =>
+                {
+                    return GetFileToBeLocked(filesystem, args);
+                },
+                exception =>
+                {
+                    return new Result<RuntimeArgs>(new AggregateException("The first command line argument should be the program to be launched. " + exception.ToString()));
+                }
+            );
+
+    protected static Result<RuntimeArgs> GetFileToBeLocked(IFileSystem filesystem, string[] args) =>
+        GetTarget(filesystem, args[1])
             .Match
             (
                 targetFile =>
@@ -23,7 +41,6 @@ public class RuntimeArgsBuilder
                     return new Result<RuntimeArgs>(new AggregateException("The second command line argument should be the file to be locked. " + exception.ToString()));
                 }
             );
-    }
 
     protected static Result<IFileInfo> GetTarget(IFileSystem filesystem, string fullPath)
     {
@@ -31,12 +48,6 @@ public class RuntimeArgsBuilder
             return new Result<IFileInfo>(new ArgumentException("Argument not provided"));
 
         IFileInfo targetFileInfo = filesystem.FileInfo.FromFileName(fullPath);
-
-        // explorer.exe is special in that it doesn't exist as a real file, but can be run.
-        // there are probably other programs like this. Whitelist them in appsettings.eventually
-        // or find a better way to handle them.
-        if (targetFileInfo.Name.Equals("explorer.exe", StringComparison.OrdinalIgnoreCase))
-            return new Result<IFileInfo>(targetFileInfo);
 
         if (!targetFileInfo.Exists)
             return new Result<IFileInfo>(new System.IO.FileNotFoundException(fullPath));
