@@ -1,41 +1,26 @@
-﻿using System.Diagnostics;
-using System.Text;
-
-namespace LaunchLocker.Library;
+﻿namespace LaunchLocker.Library;
 
 public class Launcher : ILauncher
 {
-    public IRuntimeArgs _runtimeArgs { get; set; }
+    private readonly IRuntimeArgs _runtimeArgs;
 
-    public Launcher(IRuntimeArgs runtimeArgs)
+    private readonly ILaunchProcess _launchProcess;
+
+    public Launcher(
+        IRuntimeArgs runtimeArgs,
+        ILaunchProcess launchProcess
+        )
     {
-        _runtimeArgs = runtimeArgs ?? throw new ArgumentException(null, nameof(runtimeArgs));
+        _runtimeArgs = runtimeArgs ?? throw new ArgumentNullException(nameof(runtimeArgs));
+        _launchProcess = launchProcess ?? throw new ArgumentNullException(nameof(launchProcess));
     }
 
-    public async Task RunAsync()
-    {
-        var args = new StringBuilder();
-        args.Append(_runtimeArgs.TargetFile.FullName);
-
-        foreach (var cla in _runtimeArgs.AdditionalArgs)
-            args.Append($" {cla}");
-
-        var process = new Process()
-        {
-            StartInfo = new ProcessStartInfo()
-            {
-                FileName = _runtimeArgs.TargetProgram.FullName,
-                UseShellExecute = true,
-                Arguments = args.ToString()
-            }
-        };
-
-        await Task.Run(() =>
-        {
-            process.Start();
-            process.WaitForExit();
-        });
-
-    }
-
+    public async Task RunAsync() =>
+        await _launchProcess
+            .RunAsync
+            (
+                _runtimeArgs.TargetProgram,
+                _runtimeArgs.TargetFile,
+                _runtimeArgs.AdditionalArgs
+            );
 }

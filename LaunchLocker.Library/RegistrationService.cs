@@ -17,6 +17,7 @@ public static class RegistrationService
         serviceCollection.AddSingleton<ILaunchLockProcess, LaunchLockProcess>();
         serviceCollection.AddSingleton<IUnlocker, Unlocker>();
         serviceCollection.AddSingleton<ILauncher, Launcher>();
+        serviceCollection.AddSingleton<ILaunchProcess, LaunchProcess>();
         return serviceCollection;
     }
 
