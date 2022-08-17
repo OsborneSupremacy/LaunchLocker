@@ -2,7 +2,7 @@
 
 namespace LaunchLocker.Library;
 
-public record RuntimeArgs
+public record RuntimeArgs : IRuntimeArgs
 {
     /// <summary>
     /// The program that will run the target file. String rather than FileInfo,

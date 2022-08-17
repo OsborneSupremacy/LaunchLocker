@@ -4,9 +4,9 @@ namespace LaunchLocker.Library;
 
 public class LockBuilder : ILockBuilder
 {
-    private readonly RuntimeArgs _runtimeArgs;
+    private readonly IRuntimeArgs _runtimeArgs;
 
-    public LockBuilder(RuntimeArgs runtimeArgs)
+    public LockBuilder(IRuntimeArgs runtimeArgs)
     {
         _runtimeArgs = runtimeArgs ?? throw new ArgumentException(null, nameof(runtimeArgs));
     }

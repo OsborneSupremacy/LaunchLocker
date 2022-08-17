@@ -5,11 +5,11 @@ namespace LaunchLocker.Library;
 
 public class Launcher : ILauncher
 {
-    public RuntimeArgs _runtimeArgs { get; set; }
+    public IRuntimeArgs _runtimeArgs { get; set; }
 
-    public Launcher(RuntimeArgs runtimeArgs)
+    public Launcher(IRuntimeArgs runtimeArgs)
     {
-        _runtimeArgs = runtimeArgs ?? throw new System.ArgumentException(null, nameof(runtimeArgs));
+        _runtimeArgs = runtimeArgs ?? throw new ArgumentException(null, nameof(runtimeArgs));
     }
 
     public async Task RunAsync()

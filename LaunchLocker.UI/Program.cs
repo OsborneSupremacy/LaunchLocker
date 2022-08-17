@@ -1,5 +1,6 @@
 ﻿using System.IO.Abstractions;
 using System.Threading.Tasks;
+using LaunchLocker.Interface;
 using LaunchLocker.Library;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +19,7 @@ class Program
         var configuration = builder.Build();
 
         await new RuntimeArgsBuilder().Build(new FileSystem(), args)
-            .Match<Task<bool>>
+            .Match
             (
                 async runtimeArgs =>
                 {
@@ -31,7 +32,7 @@ class Program
             );
     }
 
-    protected static async Task<bool> RunAsync(IConfigurationRoot configuration, RuntimeArgs args)
+    protected static async Task<bool> RunAsync(IConfigurationRoot configuration, IRuntimeArgs args)
     {
         await Host.CreateDefaultBuilder()
             .ConfigureServices((hostContext, services) =>

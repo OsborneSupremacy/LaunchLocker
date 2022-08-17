@@ -6,12 +6,12 @@ public class LockFinder : ILockFinder
 {
     private readonly Settings _settings;
 
-    private readonly RuntimeArgs _runtimeArgs;
+    private readonly IRuntimeArgs _runtimeArgs;
 
     private const string LockFileExtension = "launchlock";
 
     public LockFinder(
-        RuntimeArgs runtimeArgs,
+        IRuntimeArgs runtimeArgs,
         Settings settings
     )
     {

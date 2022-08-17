@@ -2,15 +2,15 @@
 
 public class RuntimeArgsBuilder
 {
-    public Result<RuntimeArgs> Build(IFileSystem filesystem, string[] args)
+    public Result<IRuntimeArgs> Build(IFileSystem filesystem, string[] args)
     {
         if (args.Length < 2)
-            return new Result<RuntimeArgs>(new ArgumentException("At least two command line arguments are required."));
+            return new Result<IRuntimeArgs>(new ArgumentException("At least two command line arguments are required."));
 
         return GetProgramToBeLaunched(filesystem, args);
     }
 
-    protected static Result<RuntimeArgs> GetProgramToBeLaunched(IFileSystem filesystem, string[] args) =>
+    protected static Result<IRuntimeArgs> GetProgramToBeLaunched(IFileSystem filesystem, string[] args) =>
         GetTarget(filesystem, args[0])
             .Match
             (
@@ -20,11 +20,11 @@ public class RuntimeArgsBuilder
                 },
                 exception =>
                 {
-                    return new Result<RuntimeArgs>(new AggregateException("The first command line argument should be the program to be launched. " + exception.ToString()));
+                    return new Result<IRuntimeArgs>(new AggregateException("The first command line argument should be the program to be launched. " + exception.ToString()));
                 }
             );
 
-    protected static Result<RuntimeArgs> GetFileToBeLocked(IFileSystem filesystem, string[] args) =>
+    protected static Result<IRuntimeArgs> GetFileToBeLocked(IFileSystem filesystem, string[] args) =>
         GetTarget(filesystem, args[1])
             .Match
             (
@@ -34,11 +34,11 @@ public class RuntimeArgsBuilder
                 },
                 exception =>
                 {
-                    return new Result<RuntimeArgs>(new AggregateException("The second command line argument should be the file to be locked. " + exception.ToString()));
+                    return new Result<IRuntimeArgs>(new AggregateException("The second command line argument should be the file to be locked. " + exception.ToString()));
                 }
             );
 
-    protected static RuntimeArgs GetRuntimeArgs(IFileSystem filesystem, string[] args)
+    protected static Result<IRuntimeArgs> GetRuntimeArgs(IFileSystem filesystem, string[] args)
     {
         return new RuntimeArgs(
             filesystem.FileInfo.FromFileName(args[0]),
